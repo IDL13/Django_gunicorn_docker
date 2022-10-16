@@ -1,0 +1,10 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "db1",
+            "database": "${workspaceFolder:mysite}/db1.sqlite3"
+        }
+    ]
+}

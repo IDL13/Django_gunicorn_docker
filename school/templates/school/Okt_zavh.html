@@ -1,0 +1,22 @@
+{% extends 'build.html' %}
+
+<p> {% block adres %} <h5> Ваше учереждение: Октябрьская ул., 81 </h5> {% endblock  %} </p>
+<p> {% block jobtitle %} <h5> Ваша должность: Завхоз </h5> {% endblock  %} </p>
+{% block storege %}<a href = "{%url 'storege'%}"><button type="submit" class="btn btn-primary" method = 'GET'>Склад</button></a>{% endblock %}
+
+ {% block db %}
+
+ <tbody>
+          
+    {% for item in acounting  %}
+    <tr><td class="action-checkbox"><input type="checkbox" name="_selected_action" value="2" class="action-select"></td><th class="field-users"><a>{{item.users}}</a><a>|</a></th><td class="field-technincs">{{item.technincs}}<a>|</a></td><td class="field-create nowrap">{{item.create}}<a>|</a></td><td class="field-tecNumber">{{item.tecNumber}}<a>|</a></td></tr>
+    {% endfor %}   
+  
+  {% comment %} <tr><td class="action-checkbox"><input type="checkbox" name="_selected_action" value="2" class="action-select"></td><th class="field-users"><a href="/admin/school/accounting/2/change/">Петров Генадий Романович</a></th><td class="field-technincs">Ноутбук</td><td class="field-create nowrap">5 июля 2022 г.</td><td class="field-tecNumber">23453453</td></tr>
+   {% endcomment %}
+  
+  {% comment %} <tr><td class="action-checkbox"><input type="checkbox" name="_selected_action" value="1" class="action-select"></td><th class="field-users"><a href="/admin/school/accounting/1/change/">Фёдоров Сергей Октябринович</a></th><td class="field-technincs">ноутбук Acer</td><td class="field-create nowrap">4 июля 2022 г.</td><td class="field-tecNumber">23423423423</td></tr>
+   {% endcomment %}
+  </tbody>
+
+{% endblock %} 
