@@ -52,12 +52,15 @@ def add(request):
         return render(request, 'add.html', {"add": add_inf,} )
     if request.method == "POST":
         form = AddForm(request.POST)
-        # if form.is_valid():
-        #     form.save()
-        #     return redirect('add')
-        # else:
-        #     error = "Форма заполнена не правильно"
-
+        if form.is_valid():
+            add = Accounting(
+                users = form.cleaned_data['users'],
+                technincs = form.cleaned_data['technincs'], 
+                create = form.cleaned_data['create'],
+                tecNumber = form.cleaned_data['tecNumber']
+            )
+            add.save()
+            return redirect('/')
 
 
       
