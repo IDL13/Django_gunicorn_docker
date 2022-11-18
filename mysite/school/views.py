@@ -18,28 +18,25 @@ def input(request):
 
         acounting = Accounting.objects.all()
         store = Store.objects.all()
+        user = Castomer.objects.all()
 
-        user = authenticate(request, login=log, password=pas)
-        login(request, user)
-        if adres == "1" and job == "1":
-            request.session.set_expiry(500)
-            request.session['pause'] = True
-            return render(request, 'school/Okt_zavh.html', {'acounting': acounting, 'store': store})
-        elif adres == "1" and job == "2":
-            request.session.set_expiry(500)
-            request.session['pause'] = True
-            return render(request, 'school/Okt_admin.html', {'acounting': acounting, 'store': store})
-        elif adres == "1" and job == "3":
-            request.session.set_expiry(500)
-            request.session['pause'] = True
-            return render(request, 'school/Okt_HDR.html', {'acounting': acounting, 'store': store})
+        user_pass = user.filter(password = pas)
+        user_log = user.filter(login = log)
+
+        if len(user_pass) > 0:
+            if adres == "1" and job == "1":
+                return render(request, 'school/Okt_zavh.html', {'acounting': acounting, 'store': store})
+            elif adres == "1" and job == "2":
+                return render(request, 'school/Okt_admin.html', {'acounting': acounting, 'store': store})
+            elif adres == "1" and job == "3":
+                return render(request, 'school/Okt_HDR.html', {'acounting': acounting, 'store': store})
+        else:
+            return HttpResponse('Error. Invalid password')
         
 def storege (request):
     if request.method == 'GET':
         store = StoreForm()
         store = Store.objects.all()
-        request.session.set_expiry(500)
-        request.session['pause'] = True
         return render(request, 'storege.html', {'store': store})
     else:
         return redirect('/')
@@ -47,8 +44,6 @@ def storege (request):
 def add(request):
     if request.method == "GET":
         add_inf = AddForm()
-        request.session.set_expiry(500)
-        request.session['pause'] = True
         return render(request, 'add.html', {"add": add_inf,} )
     if request.method == "POST":
         form = AddForm(request.POST)
