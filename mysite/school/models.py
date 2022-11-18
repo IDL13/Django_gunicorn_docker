@@ -9,8 +9,8 @@ class Castomer(models.Model):
     password = models.CharField(max_length=30, verbose_name='Пароль')
     
     def __str__(self):
-        return self.login
-    
+        return self.password
+
     class Meta:
         verbose_name = 'Авторизация'
         verbose_name_plural = 'Авторизация'

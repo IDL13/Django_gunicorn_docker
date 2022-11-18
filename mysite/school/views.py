@@ -18,7 +18,9 @@ def input(request):
 
         acounting = Accounting.objects.all()
         store = Store.objects.all()
+        user = Castomer.objects.all()
 
+<<<<<<< HEAD
         acounting = Accounting.objects.all()
         store = Store.objects.all()
 
@@ -30,6 +32,20 @@ def input(request):
             return render(request, 'school/Okt_admin.html', {'acounting': acounting, 'store': store})
         elif adres == "1" and job == "3":
             return render(request, 'school/Okt_HDR.html', {'acounting': acounting, 'store': store})
+=======
+        user_pass = user.filter(password = pas)
+        user_log = user.filter(login = log)
+
+        if len(user_pass) > 0:
+            if adres == "1" and job == "1":
+                return render(request, 'school/Okt_zavh.html', {'acounting': acounting, 'store': store})
+            elif adres == "1" and job == "2":
+                return render(request, 'school/Okt_admin.html', {'acounting': acounting, 'store': store})
+            elif adres == "1" and job == "3":
+                return render(request, 'school/Okt_HDR.html', {'acounting': acounting, 'store': store})
+        else:
+            return HttpResponse('Error. Invalid password')
+>>>>>>> d8ec0c30d5ebeae68938dbdcf0e293fa57595192
         
 def storege (request):
     if request.method == 'GET':
