@@ -26,6 +26,12 @@ class AddForm(forms.Form):
     create = forms.DateField(label="Дата создания")
     tecNumber = forms.IntegerField(label="Техномер")
 
+class LoginUserForm(AuthorizationForm):
+    username = forms.CharField(label='Логин', widget=forms.TextInput(attrs={'class': 'form-input'}))
+    password = forms.CharField(label='Пароль', widget=forms.TextInput(attrs={'class': 'form-input'}))
 
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request', None)
+        super(LoginUserForm, self).__init__(*args, **kwargs)
 
 
