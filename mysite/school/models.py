@@ -33,6 +33,9 @@ class Accounting(models.Model):
     tecNumber = models.IntegerField()
     # store = models.ForeignKey('Store', on_delete = models.PROTECT, blank = True)
 
+    def __str__(self):
+        return self.users
+
     class Meta:
         verbose_name = 'Учётная книга'
         verbose_name_plural = 'Учётная книга'

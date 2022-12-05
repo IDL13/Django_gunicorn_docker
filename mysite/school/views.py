@@ -79,19 +79,20 @@ class Storege(ListView):
 #         return redirect('/')
 
 # class Add(CreateView):
-#     form_class = AddForm
+#     form_class =  AddForm
 #     template_name = 'add.html'
+#     context_object_name = 'add'
 #     success_url = reverse_lazy('homepage')
-#     login_url = reverse_lazy('homepage')
-#     raise_exception = True
+#     # login_url = reverse_lazy('homepage')
+#     # raise_exception = True
 
 #     def get_context_data(self, *, object_list = None, **kwargs):
 #         context = super().get_context_data(**kwargs)
-#         # context['add'] = AddForm()
-#         return dict(list(context.items()))
+#         return dict(list(context.items())) 
 
-#     # def get_queryset(self):
-#     #      return Accounting.objects.all()
+
+    # def get_queryset(self):
+    #      return Accounting.objects.all()
 
 def add(request):
     if request.method == "GET":
