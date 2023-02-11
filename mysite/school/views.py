@@ -78,37 +78,37 @@ class Storege(ListView):
 #     else:
 #         return redirect('/')
 
-# class Add(CreateView):
-#     form_class =  AddForm
-#     template_name = 'add.html'
-#     context_object_name = 'add'
-#     success_url = reverse_lazy('homepage')
-#     # login_url = reverse_lazy('homepage')
-#     # raise_exception = True
+class Add(CreateView):
+    form_class =  AddForm
+    template_name = 'add.html'
+    context_object_name = 'add'
+    success_url = reverse_lazy('homepage')
+    # login_url = reverse_lazy('homepage')
+    # raise_exception = True
 
-#     def get_context_data(self, *, object_list = None, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         return dict(list(context.items())) 
+    # def get_context_data(self, *, object_list = None, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     return dict(list(context.items())) 
 
 
     # def get_queryset(self):
     #      return Accounting.objects.all()
 
-def add(request):
-    if request.method == "GET":
-        add_inf = AddForm()
-        return render(request, 'add.html', {"add": add_inf,} )
-    if request.method == "POST":
-        form = AddForm(request.POST)
-        if form.is_valid():
-            add = Accounting(
-                users = form.cleaned_data['users'],
-                technincs = form.cleaned_data['technincs'], 
-                create = form.cleaned_data['create'],
-                tecNumber = form.cleaned_data['tecNumber']
-            )
-            add.save()
-            return redirect('/')
+# def add(request):
+#     if request.method == "GET":
+#         add_inf = AddForm()
+#         return render(request, 'add.html', {"add": add_inf,} )
+#     if request.method == "POST":
+#         form = AddForm(request.POST)
+#         if form.is_valid():
+#             add = Accounting(
+#                 users = form.cleaned_data['users'],
+#                 technincs = form.cleaned_data['technincs'], 
+#                 create = form.cleaned_data['create'],
+#                 tecNumber = form.cleaned_data['tecNumber']
+#             )
+#             add.save()
+#             return redirect('/')
 
 
       

@@ -28,11 +28,18 @@ class StoreForm(forms.Form):
     technincs = forms.CharField(max_length = 50)
     tecNumber = forms.IntegerField()
 
-class AddForm(forms.Form):
-    users = forms.CharField(max_length = 30, label="Пользователь")
-    technincs = forms.CharField(max_length = 50, label="Техника")
-    create = forms.DateField(label="Дата создания")
-    tecNumber = forms.IntegerField(label="Техномер")
+class AddForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        
+    class Meta:
+        model = Accounting
+        fields = ['users','technincs', 'tecNumber']
+            
+    # users = forms.CharField(max_length = 30, label="Пользователь")
+    # technincs = forms.CharField(max_length = 50, label="Техника")
+    # # create = forms.DateField(label="Дата создания")
+    # tecNumber = forms.IntegerField(label="Техномер")
 
 class LoginUserForm(AuthorizationForm):
     username = forms.CharField(label='Логин', widget=forms.TextInput(attrs={'class': 'form-input'}))
