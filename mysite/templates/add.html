@@ -16,9 +16,13 @@
     
       <main class="px-2">
         
-        <h5><form class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column " method = "post">
-          {{add}}
+        <h5><form class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column " method = "post" action="{% url 'add' %}">
           {% csrf_token %}
+          {% for f in form %}
+          <p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
+          <div class="form-error">{{ f.errors }}</div>
+          {% endfor %}
+
           <button class="btn btn-dark" tupe = "submit" ><h6>Добавить</h6></button>
        </form></h5> 
       </main>
