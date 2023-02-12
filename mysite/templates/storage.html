@@ -19,6 +19,13 @@
       </header>
     
       <main class="px-2">
+        
+        <a href="{%url 'add_storage'%}" class="addlink">
+        <button type="button" class="btn btn-primary">
+          {% csrf_token %}
+          Добавить на Склад  
+        </button>
+        </a>
 
         <form id="changelist-form" method="post" novalidate><input type="hidden">
         {% csrf_token %}

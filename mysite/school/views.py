@@ -60,7 +60,7 @@ class Table(ListView):
 
 class Storege(ListView):
     model = Store
-    template_name = 'storege.html'
+    template_name = 'storage.html'
     context_object_name = 'store'
 
     def get_context_data(self, *, object_list = None, **kwargs):
@@ -78,11 +78,17 @@ class Storege(ListView):
 #     else:
 #         return redirect('/')
 
-class Add(CreateView):
-    form_class =  AddForm
-    template_name = 'add.html'
-    context_object_name = 'add'
-    success_url = reverse_lazy('homepage')
+class Add_accounting(CreateView):
+    form_class =  AddAccountingForm
+    template_name = 'add_accounting.html'
+    context_object_name = 'add_acounting'
+    success_url = reverse_lazy('table')
+    
+class Add_storage(CreateView):
+    form_class =  AddStorageForm
+    template_name = 'add_storage.html'
+    context_object_name = 'add_storage'
+    success_url = reverse_lazy('storage')
     # login_url = reverse_lazy('homepage')
     # raise_exception = True
 
