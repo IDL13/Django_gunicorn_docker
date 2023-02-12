@@ -28,7 +28,15 @@ class StoreForm(forms.Form):
     technincs = forms.CharField(max_length = 50)
     tecNumber = forms.IntegerField()
 
-class AddForm(forms.ModelForm):
+class AddStorageForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        
+    class Meta:
+        model = Store
+        fields = ['technincs','tecNumber', 'status']
+        
+class AddAccountingForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         

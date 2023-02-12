@@ -22,13 +22,13 @@
     
       <main class="px-2">
 
-        <a href="{%url 'add'%}" class="addlink">
+        <a href="{%url 'add_accounting'%}" class="addlink">
         <button type="button" class="btn btn-primary">
           {% csrf_token %}
           Добавить Учётная книга  
         </button>
         </a>
-        <a href="{%url 'storege'%}" class="addlink">
+        <a href="{%url 'storage'%}" class="addlink">
           <button type="submit" class="btn btn-primary">
             {%csrf_token%}
             Склад

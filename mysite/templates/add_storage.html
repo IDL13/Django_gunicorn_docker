@@ -15,8 +15,10 @@
 
     
       <main class="px-2">
+
+        <h5>Добавить новую запись</h5>
         
-        <h5><form class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column " method = "post" action="{% url 'add' %}">
+        <h5><form class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column " method = "post" action="{% url 'add_storage' %}">
           {% csrf_token %}
           {% for f in form %}
           <p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
