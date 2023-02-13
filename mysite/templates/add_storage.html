@@ -17,6 +17,7 @@
       <main class="px-2">
 
         <h5>Добавить новую запись</h5>
+        <a href = {% url "table"%}><h6>На главную</h6></a>
         
         <h5><form class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column " method = "post" action="{% url 'add_storage' %}">
           {% csrf_token %}

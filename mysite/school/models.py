@@ -17,7 +17,6 @@ class Castomer(models.Model):
 
 class Adress(models.Model):
     adress = models.CharField(max_length = 50, verbose_name = 'Адресс')
-    # accounting = models.ForeignKey('Accounting', on_delete = models.PROTECT)
 
     def __str__(self):
         return self.adress
@@ -31,7 +30,6 @@ class Accounting(models.Model):
     technincs = models.CharField(max_length = 50, verbose_name = "Техника")
     create = models.DateField(auto_now = True)
     tecNumber = models.IntegerField(verbose_name = "Техномер")
-    # store = models.ForeignKey('Store', on_delete = models.PROTECT, blank = True)
 
     def __str__(self):
         return self.users

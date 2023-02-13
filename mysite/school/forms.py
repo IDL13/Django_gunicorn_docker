@@ -7,8 +7,7 @@ from django.forms import ModelForm, TextInput
 class AuthorizationForm(forms.Form):
     adress = forms.ModelChoiceField(empty_label = 'Выберите здание',queryset = Adress.objects.all(), label = '')
     jobtitle = forms.ModelChoiceField(empty_label = 'Выберете вашу должность', queryset = User.objects.all(), label = '')
-    # login = forms.CharField(max_length = 40,label = 'Логин')
-    # password = forms.CharField( max_length = 40,label = 'Пароль', widget=forms.PasswordInput())
+
 
 class AccountingForm(forms.Form):
     users = forms.CharField(max_length = 30)
@@ -24,9 +23,11 @@ class AccountingForm(forms.Form):
         model = Accounting
         fields = ['users', 'technincs', 'create', 'tecNumber']
 
+
 class StoreForm(forms.Form):
     technincs = forms.CharField(max_length = 50)
     tecNumber = forms.IntegerField()
+
 
 class AddStorageForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -35,6 +36,7 @@ class AddStorageForm(forms.ModelForm):
     class Meta:
         model = Store
         fields = ['technincs','tecNumber', 'status']
+
         
 class AddAccountingForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -44,10 +46,6 @@ class AddAccountingForm(forms.ModelForm):
         model = Accounting
         fields = ['users','technincs', 'tecNumber']
             
-    # users = forms.CharField(max_length = 30, label="Пользователь")
-    # technincs = forms.CharField(max_length = 50, label="Техника")
-    # # create = forms.DateField(label="Дата создания")
-    # tecNumber = forms.IntegerField(label="Техномер")
 
 class LoginUserForm(AuthorizationForm):
     username = forms.CharField(label='Логин', widget=forms.TextInput(attrs={'class': 'form-input'}))

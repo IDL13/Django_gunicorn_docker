@@ -33,31 +33,6 @@ class Table(ListView):
         return reverse_lazy('add') 
 
 
-# def input(request):
-#     if request.method == 'GET':
-#         form = AuthorizationForm()
-#         return render(request, 'base.html', {'form': form})
-#     else:
-#         adres = request.POST.get('adress')
-#         job = request.POST.get('jobtitle')
-#         log = request.POST.get('login')
-#         pas = request.POST.get('password')
-
-#         acounting = Accounting.objects.all()
-#         store = Store.objects.all()
-
-#         acounting = Accounting.objects.all()
-#         store = Store.objects.all()
-
-#         user = authenticate(request, login=log, password=pas)
-#         login(request, user)
-#         if adres == "1" and job == "1":
-#             return render(request, 'school/Okt_zavh.html', {'acounting': acounting, 'store': store})
-#         elif adres == "1" and job == "2":
-#             return render(request, 'school/Okt_admin.html', {'acounting': acounting, 'store': store})
-#         elif adres == "1" and job == "3":
-#             return render(request, 'school/Okt_HDR.html', {'acounting': acounting, 'store': store})
-
 class Storege(ListView):
     model = Store
     template_name = 'storage.html'
@@ -70,54 +45,20 @@ class Storege(ListView):
     def get_success_url(self):
         return reverse_lazy('add')    
         
-# def storege (request):
-#     if request.method == 'GET':
-#         store = StoreForm()
-#         store = Store.objects.all()
-#         return render(request, 'storege.html', {'store': store})
-#     else:
-#         return redirect('/')
 
 class Add_accounting(CreateView):
     form_class =  AddAccountingForm
     template_name = 'add_accounting.html'
     context_object_name = 'add_acounting'
     success_url = reverse_lazy('table')
-    
+
+   
 class Add_storage(CreateView):
     form_class =  AddStorageForm
     template_name = 'add_storage.html'
     context_object_name = 'add_storage'
     success_url = reverse_lazy('storage')
-    # login_url = reverse_lazy('homepage')
-    # raise_exception = True
-
-    # def get_context_data(self, *, object_list = None, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     return dict(list(context.items())) 
-
-
-    # def get_queryset(self):
-    #      return Accounting.objects.all()
-
-# def add(request):
-#     if request.method == "GET":
-#         add_inf = AddForm()
-#         return render(request, 'add.html', {"add": add_inf,} )
-#     if request.method == "POST":
-#         form = AddForm(request.POST)
-#         if form.is_valid():
-#             add = Accounting(
-#                 users = form.cleaned_data['users'],
-#                 technincs = form.cleaned_data['technincs'], 
-#                 create = form.cleaned_data['create'],
-#                 tecNumber = form.cleaned_data['tecNumber']
-#             )
-#             add.save()
-#             return redirect('/')
-
-
-      
+     
       
       
       
