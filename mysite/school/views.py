@@ -24,13 +24,14 @@ class Table(ListView):
     model = Accounting
     template_name = 'build.html'
     context_object_name = 'acounting'
-
-    def get_context_data(self, *, object_list = None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return dict(list(context.items())) 
-
-    def get_success_url(self):
-        return reverse_lazy('add') 
+    
+    def delete(request, tec):
+        try:
+            user = Accounting.objects.get(tecNumber=tec)
+            user.delete()
+            return redirect("table")
+        except Accounting.DoesNotExist:
+            return HttpResponseNotFound("<h2>User not found</h2>")
 
 
 class Storege(ListView):
