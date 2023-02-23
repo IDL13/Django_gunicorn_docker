@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block form %}
+
+<h5>Редактирование запись</h5>
+<a href = {% url "table"%}><h6>На главную</h6></a>
+
+<h5><form class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column " method = "post" action="{% url 'add_accounting' %}">
+  {% csrf_token %}
+        <p>
+        <label>Пользователь</label><br>
+        <input type="text" name="users" value="{{old_user.users}}" />
+        </p>
+        <p>
+            <label>Устройство</label><br>
+            <input type="text" name="technincs" value="{{old_user.technincs}}" />
+            </p>
+            <p>
+                <label>Техномер</label><br>
+                <input type="text" name="tecNumber" value="{{old_user.tecNumber}}" />
+                </p>
+  <button class="btn btn-dark" tupe = "submit" ><h6>Сохранить</h6></button> 
+{% endblock  %}

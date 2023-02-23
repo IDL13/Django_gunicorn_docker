@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block form %}
+
+<h5>Редактирование запись</h5>
+<a href = {% url "table"%}><h6>На главную</h6></a>
+
+<h5><form class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column " method = "post" action="{% url 'add_storage' %}">
+  {% csrf_token %}
+        <p>
+            <label>Устройство</label><br>
+            <input type="text" name="technincs" value="{{technique.technincs}}" />
+            </p>
+            <p>
+                <label>Техномер</label><br>
+                <input type="text" name="tecNumber" value="{{technique.tecNumber}}" />
+                </p>
+
+                <p>
+                    <label class="form-label" for="id_status">Status: </label><br>
+                    <input type="checkbox" name="status" id="id_status" value = "{{technique.status}}" checked>
+                </p>
+
+  <button class="btn btn-dark" tupe = "submit" ><h6>Сохранить</h6></button> 
+{% endblock  %}

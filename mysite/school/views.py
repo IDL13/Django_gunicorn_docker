@@ -32,19 +32,55 @@ class Table(ListView):
             return redirect("table")
         except Accounting.DoesNotExist:
             return HttpResponseNotFound("<h2>User not found</h2>")
+        
+    def update(request, tec):
+        try:
+            user = Accounting.objects.get(tecNumber=tec)
+            if request.method == "POST":
+                user.users = request.POST.get("users")
+                user.technincs = request.POST.get("technincs")
+                user.tecNumber = request.POST.get("tecNumber")
+                user.save()
+                return redirect("table")
+            else:
+                return render(request, "update_accounting.html")
+        except Accounting.DoesNotExist:
+            return HttpResponseNotFound("<h2>Person not found</h2>")
 
 
-class Storege(ListView):
+class Storage(ListView):
     model = Store
     template_name = 'storage.html'
     context_object_name = 'store'
 
-    def get_context_data(self, *, object_list = None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return dict(list(context.items())) 
+    def delete(request, tec):
+        try:
+            technique = Store.objects.get(tecNumber=tec)
+            technique.delete()
+            return redirect("storage")
+        except Accounting.DoesNotExist:
+            return HttpResponseNotFound("<h2>Technique not found</h2>")
+        
+    def update(request, tec):
+        try:
+            technique = Store.objects.get(tecNumber=tec)
+            if request.method == "POST":
+                technique.technincs = request.POST.get("technincs")
+                technique.tecNumber = request.POST.get("tecNumber")
+                technique.status = request.POST.get("status")
+                user.save()
+                return redirect("storage")
+            else:
+                return render(request, "update_storage.html")
+        except Accounting.DoesNotExist:
+            return HttpResponseNotFound("<h2>Person not found</h2>")
 
-    def get_success_url(self):
-        return reverse_lazy('add')    
+    # def get_context_data(self, *, object_list = None, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     return dict(list(context.items())) 
+
+    # def get_success_url(self):
+    #     return reverse_lazy('add')    
         
 
 class Add_accounting(CreateView):

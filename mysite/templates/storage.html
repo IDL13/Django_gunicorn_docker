@@ -42,8 +42,15 @@
               <tr>
                 <th scope="row">{{item.technincs}}</th>
                 <td>{{item.tecNumber}}</td>
+                {% if item.status == True%}
+                  <td>✔️</td>
+                {% elif item.status == False %}
+                  <td>❌</td>
+                {% endif %}
+                <td><a href = "delete/{{item.tecNumber}}">&#128465;&#65039</a></td>
+                <form method="post"><td><input type="hidden"><a href = "update/{{item.tecNumber}}">♻️</a></td></form>
               </tr>
-              {% endfor  %}
+            {% endfor  %}
 
             </tbody>
           </table>
