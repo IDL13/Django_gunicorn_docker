@@ -45,6 +45,7 @@
                 <th scope="col">Дата</th>
                 <th scope="col">Техномер</th>
                 <th scope="col"></th>
+                <th scope = "col"></th>
               </tr>
             </thead>
             <tbody>
@@ -55,6 +56,7 @@
                 <td>{{item.create}}</td>
                 <td>{{item.tecNumber}}</td>
                 <td><a href = "delete/{{item.tecNumber}}">&#128465;&#65039</a></td>
+                <form method="post"><td><input type="hidden"><a href = "update/{{item.tecNumber}}">♻️</a></td></form>
               </tr>
 
               {% endfor %} 
