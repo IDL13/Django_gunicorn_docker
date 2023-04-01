@@ -26,10 +26,10 @@ class Adress(models.Model):
         verbose_name_plural = 'Здания'
 
 class Accounting(models.Model):
-    users = models.CharField(max_length = 30, verbose_name = "Пользователь")
-    technincs = models.CharField(max_length = 50, verbose_name = "Техника")
+    users = models.CharField(max_length = 30, verbose_name = 'Пользователь')
+    technincs = models.CharField(max_length = 50, verbose_name = 'Техника')
     create = models.DateField(auto_now = True)
-    tecNumber = models.IntegerField(verbose_name = "Техномер")
+    tecNumber = models.IntegerField(verbose_name = 'Техномер')
 
     def __str__(self):
         return self.users

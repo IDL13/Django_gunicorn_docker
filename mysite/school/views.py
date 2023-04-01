@@ -9,13 +9,19 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth import login, logout, authenticate
 
 
+class FirsPage(ListView):
+    template_name = 'home.html'
+    
+    def observe(request):
+        return render(request, 'home.html')
+
 class LoginUser(LoginView):
     form_class = AuthenticationForm
     template_name = 'main_page.html'
 
-    def get_context_data(self, *, object_list = None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return dict(list(context.items()))
+    # def get_context_data(self, *, object_list = None, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     return dict(list(context.items()))
 
     def get_success_url(self):
         return reverse_lazy('table')
@@ -29,23 +35,23 @@ class Table(ListView):
         try:
             user = Accounting.objects.get(tecNumber=tec)
             user.delete()
-            return redirect("table")
+            return redirect('table')
         except Accounting.DoesNotExist:
-            return HttpResponseNotFound("<h2>User not found</h2>")
+            return HttpResponseNotFound('<h2>User not found</h2>')
         
     def update(request, tec):
         try:
             user = Accounting.objects.get(tecNumber=tec)
-            if request.method == "POST":
-                user.users = request.POST.get("users")
-                user.technincs = request.POST.get("technincs")
-                user.tecNumber = request.POST.get("tecNumber")
+            if request.method == 'POST':
+                user.users = request.POST.get('users')
+                user.technincs = request.POST.get('technincs')
+                user.tecNumber = request.POST.get('tecNumber')
                 user.save()
-                return redirect("table")
+                return redirect('table')
             else:
-                return render(request, "update_accounting.html")
+                return render(request, 'update_accounting.html')
         except Accounting.DoesNotExist:
-            return HttpResponseNotFound("<h2>Person not found</h2>")
+            return HttpResponseNotFound('<h2>Person not found</h2>')
 
 
 class Storage(ListView):
@@ -57,23 +63,23 @@ class Storage(ListView):
         try:
             technique = Store.objects.get(tecNumber=tec)
             technique.delete()
-            return redirect("storage")
+            return redirect('storage')
         except Accounting.DoesNotExist:
-            return HttpResponseNotFound("<h2>Technique not found</h2>")
+            return HttpResponseNotFound('<h2>Technique not found</h2>')
         
     def update(request, tec):
         try:
             technique = Store.objects.get(tecNumber=tec)
-            if request.method == "POST":
-                technique.technincs = request.POST.get("technincs")
-                technique.tecNumber = request.POST.get("tecNumber")
-                technique.status = request.POST.get("status")
+            if request.method == 'POST':
+                technique.technincs = request.POST.get('technincs')
+                technique.tecNumber = request.POST.get('tecNumber')
+                technique.status = request.POST.get('status')
                 user.save()
-                return redirect("storage")
+                return redirect('storage')
             else:
-                return render(request, "update_storage.html")
+                return render(request, 'update_storage.html')
         except Accounting.DoesNotExist:
-            return HttpResponseNotFound("<h2>Person not found</h2>")
+            return HttpResponseNotFound('<h2>Person not found</h2>')
 
     # def get_context_data(self, *, object_list = None, **kwargs):
     #     context = super().get_context_data(**kwargs)
