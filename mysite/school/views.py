@@ -7,6 +7,7 @@ from .forms import *
 from django.views.generic import ListView, DeleteView, CreateView
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import login, logout, authenticate
+from django.db.models import Q
 
 
 class FirsPage(ListView):
@@ -52,6 +53,16 @@ class Table(ListView):
                 return render(request, 'update_accounting.html')
         except Accounting.DoesNotExist:
             return HttpResponseNotFound('<h2>Person not found</h2>')
+        
+    def find(request):
+        search_query = request.GET.get('find','')
+        
+        if search_query:
+            people = Accounting.objects.filter(Q(tecNumber__icontains = search_query) | Q(users__icontains = search_query) | Q(technincs__icontains = search_query))
+        else:
+            people = Accounting.objects.all
+        
+        return render(request, "find.html", {'people':people})
 
 
 class Storage(ListView):

@@ -1,0 +1,35 @@
+{% extends 'build.html' %}
+{%block table%}
+<table class="table table-dark">
+    <thead>
+      <tr>
+        <th scope = "col">ID</th>
+        <th scope = "col">Пользователь</th>
+        <th scope="col">Техника</th>
+        <th scope="col">Дата</th>
+        <th scope="col">Техномер</th>
+        <th scope="col"></th>
+        <th scope = "col"></th>
+      </tr>
+    </thead>
+    <tbody>
+       {% for item in people %}
+      <tr>
+        <th scope="row">{{item.id}}</th>
+        <th scope="row">{{item.users}}</th>
+        <td>{{item.technincs}}</td>
+        <td>{{item.create}}</td>
+        <td>{{item.tecNumber}}</td>
+        <td>{{ accounting.counter}}</td>
+        {% if 'school.delete_accounting' in user.get_group_permissions%}
+        <td><a href = "delete/{{item.tecNumber}}">&#128465;&#65039</a></td>
+        {%endif%}
+        {% if 'school.change_accounting' in user.get_group_permissions%}
+        <form method="post"><td><input type="hidden"><a href = "update/{{item.tecNumber}}">♻️</a></td></form>
+      </tr>
+      {%endif%}
+      {% endfor %} 
+    </tbody>
+  </table>
+
+  {%endblock%}

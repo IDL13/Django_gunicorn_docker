@@ -13,4 +13,5 @@ urlpatterns = [
        path ('table/accounting',Add_accounting.as_view(), name = 'add_accounting'),
        path ('table/delete/<int:tec>/', Table.delete),
        path('table/update/<int:tec>', Table.update),
+       path('table/find',Table.find, name = 'find'),
 ]
