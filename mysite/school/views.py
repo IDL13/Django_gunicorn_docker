@@ -91,6 +91,16 @@ class Storage(ListView):
                 return render(request, 'update_storage.html')
         except Accounting.DoesNotExist:
             return HttpResponseNotFound('<h2>Person not found</h2>')
+        
+    def find(request):
+        search_query = request.GET.get('find','')
+        
+        if search_query:
+            obj = Store.objects.filter(Q(tecNumber__icontains = search_query) | Q(technincs__icontains = search_query))
+        else:
+            obj = Store.objects.all
+        
+        return render(request, "find_storage.html", {'object':obj})
 
     # def get_context_data(self, *, object_list = None, **kwargs):
     #     context = super().get_context_data(**kwargs)
