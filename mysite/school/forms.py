@@ -45,6 +45,10 @@ class AddAccountingForm(forms.ModelForm):
     class Meta:
         model = Accounting
         fields = ['users','technincs', 'tecNumber']
+        
+class UploadFileForm(forms.Form):
+    title = forms.CharField(max_length=50)
+    file = forms.FileField()
             
 
 # class LoginUserForm(AuthorizationForm):

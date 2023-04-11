@@ -39,6 +39,33 @@
           </button>
         </a>
         {%endif%}
+  
+        {%if 'school.view_store' in user.get_group_permissions%}
+        <a href="{%url 'save_in_xml'%}" class="addlink">
+          <button type="submit" class="btn btn-primary">
+            {%csrf_token%}
+            Сохранить в xml
+          </button>
+        </a>
+        {%endif%}
+
+        {%if 'school.view_store' in user.get_group_permissions%}
+        <a href="/static/xml/xml.xml" class="addlink" download>
+          <button type="submit" class="btn btn-primary">
+            {%csrf_token%}
+            Скачать xml
+          </button>
+        </a>
+        {%endif%}
+
+        {%if 'school.view_store' in user.get_group_permissions%}
+        <a href="{%url 'upload'%}" class="addlink">
+          <button type="submit" class="btn btn-primary">
+            {%csrf_token%}
+            Загрузка из xml
+          </button>
+        </a>
+        {%endif%}
 
         <div class="u-form u-form-1">
           <form action="{% url "find" %}" class="u-clearfix u-form-horizontal u-form-spacing-15 u-inner-form" style="padding: 15px;" source="searche">

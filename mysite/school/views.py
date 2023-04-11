@@ -1,6 +1,6 @@
 from operator import getitem
 from django.shortcuts import redirect, render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound
 from django.urls import reverse_lazy
 from .models import *
 from .forms import *
@@ -8,6 +8,9 @@ from django.views.generic import ListView, DeleteView, CreateView
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import login, logout, authenticate
 from django.db.models import Q
+
+import xml.etree.ElementTree as ET
+from django.core.files.storage import FileSystemStorage
 
 
 class FirsPage(ListView):
@@ -63,6 +66,48 @@ class Table(ListView):
             people = Accounting.objects.all
         
         return render(request, "find.html", {'people':people})
+    
+    def save_in_xml(request):
+        user_info = Accounting.objects.all()
+        
+        date = []
+        for i in user_info:
+            arr = {}
+            arr["user"] = str(i.users)
+            arr["tec"] = str(i.technincs)
+            arr["create"] = str(i.create)
+            arr["tecNumber"] = str(i.tecNumber)
+            date.append(arr)
+        
+        table = ET.Element('table')
+
+        for i, item in enumerate(date, 1):
+            person = ET.SubElement(table, 'person' + str(i))
+            ET.SubElement(person, 'user').text = item['user']
+            ET.SubElement(person, 'tec').text = item['tec']
+            ET.SubElement(person, 'create').text = item['create']
+            ET.SubElement(person, 'tecNumber').text = item['tecNumber']
+            
+        mydate = ET.tostring(table, encoding="unicode")
+
+        f = open("mysite/static/xml/xml.xml", "w")
+        f.write(mydate)
+        f.close()
+
+        return redirect("table")
+        
+    def simple_upload(request):
+        if request.method == 'POST' and request.FILES['myfile']:
+            myfile = request.FILES['myfile']
+            if myfile.content_type != "text/xml":
+                return HttpResponseNotFound('<h2>Uncorrect file</h2>') 
+            fs = FileSystemStorage()
+            filename = fs.save(myfile.name, myfile)
+            uploaded_file_url = fs.url(filename)
+            return render(request, 'simple_upload.html', {
+                'uploaded_file_url': uploaded_file_url
+            })
+        return render(request, 'simple_upload.html')
 
 
 class Storage(ListView):
@@ -122,14 +167,7 @@ class Add_storage(CreateView):
     template_name = 'add_storage.html'
     context_object_name = 'add_storage'
     success_url = reverse_lazy('storage')
-     
-      
-      
-      
-      
-      
-      
-      
+            
     
     
 
