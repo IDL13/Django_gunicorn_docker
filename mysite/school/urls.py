@@ -15,6 +15,6 @@ urlpatterns = [
        path('table/find/',Table.find, name = 'find'),
        path('storage/find/',Storage.find, name = 'find_storage'),
        
-       path('table/save-in-xml',Table.save_in_xml ,name = "save_in_xml"),
-       path('upload/',Table.simple_upload, name = "upload"),
+       path('table/save-in-xml', Upload.save_in_xml ,name = "save_in_xml"),
+       path('upload/',Add_file.as_view(), name = "upload"),
 ]

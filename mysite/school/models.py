@@ -47,6 +47,14 @@ class Store(models.Model):
     class Meta:
         verbose_name = 'Склад'
         verbose_name_plural = 'Склад'
+        
+class File(models.Model):
+    title = models.CharField(max_length=50)
+    file = models.FileField()
+    
+    class Meta:
+        verbose_name = 'Загрузка xml'
+        verbose_name_plural = 'Загрузка xml'
 
 # class User(models.Model):
 #     jobtitle = models.CharField(max_length = 30, verbose_name = 'Должность')

@@ -45,11 +45,14 @@ class AddAccountingForm(forms.ModelForm):
     class Meta:
         model = Accounting
         fields = ['users','technincs', 'tecNumber']
+     
+class AddFileForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         
-class UploadFileForm(forms.Form):
-    title = forms.CharField(max_length=50)
-    file = forms.FileField()
-            
+    class Meta:
+        model = File
+        fields = ['title','file']              
 
 # class LoginUserForm(AuthorizationForm):
 #     username = forms.CharField(label='Логин', widget=forms.TextInput(attrs={'class': 'form-input'}))

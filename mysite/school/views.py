@@ -30,6 +30,59 @@ class LoginUser(LoginView):
     def get_success_url(self):
         return reverse_lazy('table')
 
+class Upload(ListView):
+    model = File
+    template_name = 'simple_upload.html'
+    context_object_name = 'upload'
+
+    def save_in_xml(request):
+        user_info = Accounting.objects.all()
+        
+        date = []
+        for i in user_info:
+            arr = {}
+            arr["user"] = str(i.users)
+            arr["tec"] = str(i.technincs)
+            arr["create"] = str(i.create)
+            arr["tecNumber"] = str(i.tecNumber)
+            date.append(arr)
+        
+        table = ET.Element('table')
+
+        for i, item in enumerate(date, 1):
+            person = ET.SubElement(table, 'person' + str(i))
+            ET.SubElement(person, 'user').text = item['user']
+            ET.SubElement(person, 'tec').text = item['tec']
+            ET.SubElement(person, 'create').text = item['create']
+            ET.SubElement(person, 'tecNumber').text = item['tecNumber']
+            
+        mydate = ET.tostring(table, encoding="unicode")
+
+        f = open("mysite/static/xml/xml.xml", "w")
+        f.write(mydate)
+        f.close()
+
+        return redirect("table")
+
+    # def simple_upload(request):
+    #     if request.method == 'POST' and request.FILES['myfile']:
+    #         title = request.POST.get('title')
+    #         myfile = request.FILES['myfile']
+    #         if myfile.content_type != "text/xml":
+    #             return HttpResponseNotFound('<h2>Uncorrect file</h2>')
+
+    #         model = Upload()
+    #         mode.title = title
+    #         model.file = myfile
+            
+    #         # fs = FileSystemStorage()
+    #         # filename = fs.save(myfile.name, myfile)
+    #         # uploaded_file_url = fs.url(filename)
+    #         return render(request, 'simple_upload.html', {
+    #             'uploaded_file_url': uploaded_file_url
+    #         })
+    #     return render(request, 'simple_upload.html')   
+    
 class Table(ListView):
     model = Accounting
     template_name = 'build.html'
@@ -100,7 +153,8 @@ class Table(ListView):
         if request.method == 'POST' and request.FILES['myfile']:
             myfile = request.FILES['myfile']
             if myfile.content_type != "text/xml":
-                return HttpResponseNotFound('<h2>Uncorrect file</h2>') 
+                return HttpResponseNotFound('<h2>Uncorrect file</h2>')
+            f = open(myfile) 
             fs = FileSystemStorage()
             filename = fs.save(myfile.name, myfile)
             uploaded_file_url = fs.url(filename)
@@ -167,6 +221,12 @@ class Add_storage(CreateView):
     template_name = 'add_storage.html'
     context_object_name = 'add_storage'
     success_url = reverse_lazy('storage')
+    
+class Add_file(CreateView):
+    form_class =  AddFileForm
+    template_name = 'simple_upload.html'
+    context_object_name = 'simple_upload'
+    success_url = reverse_lazy('table')
             
     
     
