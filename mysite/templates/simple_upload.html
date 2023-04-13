@@ -3,23 +3,12 @@
 {%block form%}
 <body>
   {% if user.is_authenticated%}
-  {% comment %} <form method="post" enctype="multipart/form-data">
+   <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
       <input type="text" placeholder="Название" name="title">
       <input type="file" name="myfile"> 
       <button type="submit">Загрузить</button>
-    </form> {% endcomment %}
-
-    <form class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column " enctype="multipart/form-data" method = "post" action="{% url 'upload' %}">
-        {% csrf_token %}
-
-        {% for f in form %}
-         <p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
-         <div class="form-error">{{ f.errors }}</div> 
-         {% endfor %} 
-
-        <button class="btn btn-dark" tupe = "submit" ><h6>Добавить</h6></button>
-     </form>
+    </form> 
 
     {%else%}
     <section class="u-clearfix u-container-align-center u-palette-1-dark-3 u-section-1" id="carousel_5149">

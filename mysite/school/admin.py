@@ -16,11 +16,16 @@ class StoreAdmin(admin.ModelAdmin):
     list_display = ('technincs', 'tecNumber',)
     search_fields = ('tecNumber',)
 
+class FileAdmin(admin.ModelAdmin):
+    list_display = ('title', 'file')
+    search_field = ('titles','files')
+    
 # class UserAdmin(admin.ModelAdmin):
 #     list_display = ('id','jobtitle',)    
 
 # admin.site.register(Adress, AdressAdmin)
 admin.site.register(Accounting, AccountingAdmin)
 admin.site.register(Store, StoreAdmin)
+admin.site.register(File, FileAdmin)
 # admin.site.register(User,UserAdmin)
 # admin.site.register(Castomer, CastomerAdmin)

@@ -63,6 +63,21 @@ class Upload(ListView):
         f.close()
 
         return redirect("table")
+    
+    def simple_upload(request):
+        if request.method == 'POST' and request.FILES['myfile']:
+            myfile = request.FILES['myfile']
+            if myfile.content_type != "text/xml":
+                return HttpResponseNotFound('<h2>Uncorrect file</h2>')
+            f = File()
+            f.title = request.POST.get('title')
+            f.file = request.FILES['myfile']
+            f.save()
+            # fs = FileSystemStorage()
+            # filename = fs.save(myfile.name, myfile)
+            # uploaded_file_url = fs.url(filename)
+            return render(request, 'simple_upload.html')
+        return render(request, 'simple_upload.html')
 
     # def simple_upload(request):
     #     if request.method == 'POST' and request.FILES['myfile']:
@@ -149,19 +164,7 @@ class Table(ListView):
 
         return redirect("table")
         
-    def simple_upload(request):
-        if request.method == 'POST' and request.FILES['myfile']:
-            myfile = request.FILES['myfile']
-            if myfile.content_type != "text/xml":
-                return HttpResponseNotFound('<h2>Uncorrect file</h2>')
-            f = open(myfile) 
-            fs = FileSystemStorage()
-            filename = fs.save(myfile.name, myfile)
-            uploaded_file_url = fs.url(filename)
-            return render(request, 'simple_upload.html', {
-                'uploaded_file_url': uploaded_file_url
-            })
-        return render(request, 'simple_upload.html')
+
 
 
 class Storage(ListView):
@@ -222,11 +225,6 @@ class Add_storage(CreateView):
     context_object_name = 'add_storage'
     success_url = reverse_lazy('storage')
     
-class Add_file(CreateView):
-    form_class =  AddFileForm
-    template_name = 'simple_upload.html'
-    context_object_name = 'simple_upload'
-    success_url = reverse_lazy('table')
             
     
     
