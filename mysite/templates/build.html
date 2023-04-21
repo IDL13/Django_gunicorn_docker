@@ -67,7 +67,7 @@
         </a>
         {%endif%}
         {%if 'school.view_store' in user.get_group_permissions%}
-        <a href="{%url 'save_in_xml'%}" class="addlink">
+        <a href="{%url 'all_xml'%}" class="addlink">
           <button type="submit" class="btn btn-primary">
             {%csrf_token%}
             Чтение из xml

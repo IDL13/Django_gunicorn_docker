@@ -27,6 +27,7 @@ class AccountingForm(forms.Form):
 class StoreForm(forms.Form):
     technincs = forms.CharField(max_length = 50)
     tecNumber = forms.IntegerField()
+    time = forms.CharField(max_length = 50)
 
 
 class AddStorageForm(forms.ModelForm):
@@ -35,7 +36,7 @@ class AddStorageForm(forms.ModelForm):
         
     class Meta:
         model = Store
-        fields = ['technincs','tecNumber', 'status']
+        fields = ['technincs','tecNumber','time','status']
 
         
 class AddAccountingForm(forms.ModelForm):

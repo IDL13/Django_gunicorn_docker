@@ -10,6 +10,7 @@
       <tr>
         <th scope="col">Техника</th>
         <th scope="col">Техномер</th>
+        <th scope="col">Дата</th>
       </tr>
     </thead>
     <tbody>
@@ -17,6 +18,7 @@
       <tr>
         <th scope="row">{{item.technincs}}</th>
         <td>{{item.tecNumber}}</td>
+        <td>{{item.time}}</td>
         {% if item.status == True%}
           <td>✔️</td>
         {% elif item.status == False %}

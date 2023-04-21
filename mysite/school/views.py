@@ -12,6 +12,8 @@ from django.db.models import Q
 import xml.etree.ElementTree as ET
 from django.core.files.storage import FileSystemStorage
 
+from bs4 import BeautifulSoup as Soup
+
 
 class FirsPage(ListView):
     template_name = 'home.html'
@@ -96,8 +98,33 @@ class Upload(ListView):
     #         return render(request, 'simple_upload.html', {
     #             'uploaded_file_url': uploaded_file_url
     #         })
-    #     return render(request, 'simple_upload.html')   
+    #     return render(request, 'simple_upload.html')  
     
+    def read_from_xml(request, file):
+        if request.method == 'GET':
+            upload = File.objects.get(file = str(file))
+            with upload.file.open() as f:
+                soup = Soup(f.read(), "xml")
+    
+                for i in soup.find_all('Row', {"ss:AutoFitHeight":"0"}):
+                    store = Store()
+                    if i != None:
+                        all = i.find_all("Data", {"ss:Type":"String"})
+                        if len(all) > 5:
+                            store.technincs = all[1].text
+                            store.tecNumber = all[2].text
+                            store.time = all[5].text
+                            store.save()
+                            # user['technics'] = all[1].text
+                            # user['number'] = all[2].text
+                            # user['time'] = all[5].text
+            return redirect("table")
+    
+    def all_xml(request):
+        upload = File.objects.all()
+        return render(request, 'read_from_xml.html', {'upload':upload})
+
+   
 class Table(ListView):
     model = Accounting
     template_name = 'build.html'
@@ -174,7 +201,7 @@ class Storage(ListView):
 
     def delete(request, tec):
         try:
-            technique = Store.objects.get(tecNumber=tec)
+            technique = Store.objects.get(id=tec)
             technique.delete()
             return redirect('storage')
         except Accounting.DoesNotExist:
@@ -182,7 +209,7 @@ class Storage(ListView):
         
     def update(request, tec):
         try:
-            technique = Store.objects.get(tecNumber=tec)
+            technique = Store.objects.get(id=tec)
             if request.method == 'POST':
                 technique.technincs = request.POST.get('technincs')
                 technique.tecNumber = request.POST.get('tecNumber')

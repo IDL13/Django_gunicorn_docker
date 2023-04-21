@@ -51,6 +51,7 @@
               <tr>
                 <th scope="col">Техника</th>
                 <th scope="col">Техномер</th>
+                <th scope="col">Время</th>
               </tr>
             </thead>
             <tbody>
@@ -58,13 +59,14 @@
               <tr>
                 <th scope="row">{{item.technincs}}</th>
                 <td>{{item.tecNumber}}</td>
+                <td>{{item.time}}</td>
                 {% if item.status == True%}
                   <td>✔️</td>
                 {% elif item.status == False %}
                   <td>❌</td>
                 {% endif %}
                 {% if 'school.delete_accounting' in user.get_group_permissions%}
-                <td><a href = "delete/{{item.tecNumber}}">&#128465;&#65039</a></td>
+                <td><a href = "delete/{{item.id}}">&#128465;&#65039</a></td>
                 {%endif%}
                 {% if 'school.change_accounting' in user.get_group_permissions%}
                 <form method="post"><td><input type="hidden"><a href = "update/{{item.tecNumber}}">♻️</a></td></form>

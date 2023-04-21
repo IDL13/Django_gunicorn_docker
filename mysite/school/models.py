@@ -40,8 +40,9 @@ class Accounting(models.Model):
     
 
 class Store(models.Model):
-    technincs = models.CharField(max_length = 50)
-    tecNumber = models.IntegerField()
+    technincs = models.CharField(max_length = 500)
+    tecNumber = models.CharField(max_length = 100)
+    time = models.CharField(max_length = 50, default = "00.00.0000")
     status = models.BooleanField(default = True)
 
     class Meta:
