@@ -7,6 +7,7 @@ urlpatterns = [
        path('storage/add_storage',Add_storage.as_view(), name = 'add_storage'),
        path('storage/delete/<int:tec>', Storage.delete, name = 'delete_storage'),
        path('storage/update/<int:tec>', Storage.update, name = 'update_storage'),
+       path('storage/qr/<int:id>', Storage.qr, name = 'qr'),
        
        path('table/', Table.as_view(), name = 'table'),
        path ('table/accounting',Add_accounting.as_view(), name = 'add_accounting'),

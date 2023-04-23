@@ -13,6 +13,7 @@ import xml.etree.ElementTree as ET
 from django.core.files.storage import FileSystemStorage
 
 from bs4 import BeautifulSoup as Soup
+import qrcode
 
 
 class FirsPage(ListView):
@@ -230,6 +231,18 @@ class Storage(ListView):
             obj = Store.objects.all
         
         return render(request, "find_storage.html", {'object':obj})
+    
+    def qr(request, id):
+        obj = Store.objects.get(id=id)
+        
+        data = "Техника:" + " " + str(obj.technincs) + "Техномер:" + " " + str(obj.tecNumber)
+        data = data.encode("cp1251")
+        filename = "qr" + str(id) +".png"
+        img = qrcode.make(data)
+        img.save("mysite/static/img/"+filename)
+        filename = "/static/img/"+filename
+        
+        return render(request, "qr.html", {'filename':filename})
 
     # def get_context_data(self, *, object_list = None, **kwargs):
     #     context = super().get_context_data(**kwargs)

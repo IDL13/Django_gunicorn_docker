@@ -71,6 +71,9 @@
                 {% if 'school.change_accounting' in user.get_group_permissions%}
                 <form method="post"><td><input type="hidden"><a href = "update/{{item.tecNumber}}">♻️</a></td></form>
                 {%endif%}
+                {% if 'school.change_accounting' in user.get_group_permissions%}
+                <form method="post"><td><input type="hidden"><a href = "qr/{{item.id}}">&#127999</a></td></form>
+                {%endif%}
               </tr>
             {% endfor  %}
             {%endblock%}
