@@ -33,6 +33,13 @@
         </button>
         </a>
 
+        <a href="{%url 'drop'%}" class="addlink">
+          <button type="button" class="btn btn-primary">
+            {% csrf_token %}
+            Удалить все записи  
+          </button>
+          </a>
+
         <div class="u-form u-form-1">
           <form action="{% url "find_storage" %}" class="u-clearfix u-form-horizontal u-form-spacing-15 u-inner-form" style="padding: 15px;" source="searche">
             <div class="u-form-group u-form-name u-label-none">

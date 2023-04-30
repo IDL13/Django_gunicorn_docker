@@ -15,9 +15,11 @@ urlpatterns = [
        path('table/update/<int:tec>', Table.update),
        path('table/find/',Table.find, name = 'find'),
        path('storage/find/',Storage.find, name = 'find_storage'),
+       path('storage/drop_db', Storage.drop, name = 'drop'),
        
        path('table/save-in-xml', Upload.save_in_xml ,name = 'save_in_xml'),
        path('table/read_from_xml', Upload.all_xml, name = 'all_xml'),
        path('table/read_from_xml/<str:file>',Upload.read_from_xml, name = 'read_from_xml' ),
        path('upload/', Upload.simple_upload, name = "upload"),
+       # path('download_qr/', Storage.download_qr, name = 'dwl_qr'),
 ]

@@ -192,9 +192,6 @@ class Table(ListView):
 
         return redirect("table")
         
-
-
-
 class Storage(ListView):
     model = Store
     template_name = 'storage.html'
@@ -235,7 +232,7 @@ class Storage(ListView):
     def qr(request, id):
         obj = Store.objects.get(id=id)
         
-        data = "Техника:" + " " + str(obj.technincs) + "Техномер:" + " " + str(obj.tecNumber)
+        data = "Техника:" + " " + str(obj.technincs) + "\n" + "Техномер:" + " " + str(obj.tecNumber) + "\n"
         data = data.encode("cp1251")
         filename = "qr" + str(id) +".png"
         img = qrcode.make(data)
@@ -243,6 +240,14 @@ class Storage(ListView):
         filename = "/static/img/"+filename
         
         return render(request, "qr.html", {'filename':filename})
+    
+    def drop(request):
+        if request.method == 'POST':
+            obj = Store.objects.all().delete()
+        return redirect("storage")
+        
+    # def download_qr(requst):
+    #     ...
 
     # def get_context_data(self, *, object_list = None, **kwargs):
     #     context = super().get_context_data(**kwargs)
