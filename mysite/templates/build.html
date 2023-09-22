@@ -108,10 +108,10 @@
                 <td>{{item.tecNumber}}</td>
                 <td>{{ accounting.counter}}</td>
                 {% if 'school.delete_accounting' in user.get_group_permissions%}
-                <td><a href = "delete/{{item.tecNumber}}">&#128465;&#65039</a></td>
+                <td><a href = "delete/{{item.id}}">&#128465;&#65039</a></td>
                 {%endif%}
                 {% if 'school.change_accounting' in user.get_group_permissions%}
-                <form method="post"><td><input type="hidden"><a href = "update/{{item.tecNumber}}">♻️</a></td></form>
+                <form method="post"><td><input type="hidden"><a href = "update/{{item.id}}">♻️</a></td></form>
               </tr>
               {%endif%}
               {% endfor %} 

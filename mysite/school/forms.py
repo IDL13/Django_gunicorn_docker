@@ -4,10 +4,6 @@ from .models import *
 from django.contrib.auth.forms import AuthenticationForm
 from django.forms import ModelForm, TextInput
 
-# class AuthorizationForm(forms.Form):
-#     adress = forms.ModelChoiceField(empty_label = 'Выберите здание',queryset = Adress.objects.all(), label = '')
-#     jobtitle = forms.ModelChoiceField(empty_label = 'Выберете вашу должность', queryset = User.objects.all(), label = '')
-
 
 class AccountingForm(forms.Form):
     users = forms.CharField(max_length = 30)
@@ -46,6 +42,7 @@ class AddAccountingForm(forms.ModelForm):
     class Meta:
         model = Accounting
         fields = ['users','technincs', 'tecNumber']
+ 
      
 class AddFileForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -55,12 +52,6 @@ class AddFileForm(forms.ModelForm):
         model = File
         fields = ['title','file']              
 
-# class LoginUserForm(AuthorizationForm):
-#     username = forms.CharField(label='Логин', widget=forms.TextInput(attrs={'class': 'form-input'}))
-#     password = forms.CharField(label='Пароль', widget=forms.TextInput(attrs={'class': 'form-input'}))
 
-    # def __init__(self, *args, **kwargs):
-    #     self.request = kwargs.pop('request', None)
-    #     super(LoginUserForm, self).__init__(*args, **kwargs)
 
 

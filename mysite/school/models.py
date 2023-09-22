@@ -3,27 +3,6 @@ from unittest.util import _MAX_LENGTH
 from django.db import models
 from django.contrib.auth.models import User
 
-# class Castomer(models.Model):
-#     user = models.OneToOneField(User, on_delete=models.CASCADE)
-#     login = models.CharField(max_length=30, verbose_name= 'Логин')
-#     password = models.CharField(max_length=30, verbose_name='Пароль')
-    
-#     def __str__(self):
-#         return self.password
-
-#     class Meta:
-#         verbose_name = 'Авторизация'
-#         verbose_name_plural = 'Авторизация'
-
-# class Adress(models.Model):
-#     adress = models.CharField(max_length = 50, verbose_name = 'Адресс')
-
-#     def __str__(self):
-#         return self.adress
-
-#     class Meta:
-#         verbose_name = 'Здание'
-#         verbose_name_plural = 'Здания'
 
 class Accounting(models.Model):
     users = models.CharField(max_length = 30, verbose_name = 'Пользователь')
@@ -57,13 +36,4 @@ class File(models.Model):
         verbose_name = 'Загрузка xml'
         verbose_name_plural = 'Загрузка xml'
 
-# class User(models.Model):
-#     jobtitle = models.CharField(max_length = 30, verbose_name = 'Должность')
-
-#     def __str__(self):
-#         return self.jobtitle
-
-#     class Meta:
-#         verbose_name = 'Пользователь'
-#         verbose_name_plural = 'Пользователи'
     
