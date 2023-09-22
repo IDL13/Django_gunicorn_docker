@@ -1,0 +1,28 @@
+{%extends 'base.html'%}
+
+{% block form %}
+<form id="changelist-form" method="post" novalidate><input type="hidden">
+    {% csrf_token %}
+     <table class="table table-dark">
+        <thead>
+          <tr>
+            <th scope="col">Техника</th>
+            <th scope="col">Техномер</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for item in upload  %} 
+          <tr>
+            <th scope="row">{{item.title}}</th>
+            <td>{{item.file}}</td>
+            <td><form method="post"><td><input type="hidden"><a href = "read_from_xml/{{item.file}}">Выбрать</a></td></form></td>
+          </tr>
+        {% endfor  %}
+        </tbody>
+      </table>
+
+              </form>
+  </main>
+</div>
+ </body>
+{% endblock  %}

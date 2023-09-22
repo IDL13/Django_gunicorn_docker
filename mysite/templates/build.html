@@ -39,6 +39,41 @@
           </button>
         </a>
         {%endif%}
+  
+        {%if 'school.view_store' in user.get_group_permissions%}
+        <a href="{%url 'save_in_xml'%}" class="addlink">
+          <button type="submit" class="btn btn-primary">
+            {%csrf_token%}
+            Сохранить в xml
+          </button>
+        </a>
+        {%endif%}
+
+        {%if 'school.view_store' in user.get_group_permissions%}
+        <a href="/static/xml/xml.xml" class="addlink" download>
+          <button type="submit" class="btn btn-primary">
+            {%csrf_token%}
+            Скачать xml
+          </button>
+        </a>
+        {%endif%}
+
+        {%if 'school.view_store' in user.get_group_permissions%}
+        <a href="{%url 'upload'%}" class="addlink">
+          <button type="submit" class="btn btn-primary">
+            {%csrf_token%}
+            Загрузка из xml
+          </button>
+        </a>
+        {%endif%}
+        {%if 'school.view_store' in user.get_group_permissions%}
+        <a href="{%url 'all_xml'%}" class="addlink">
+          <button type="submit" class="btn btn-primary">
+            {%csrf_token%}
+            Чтение из xml
+          </button>
+        </a>
+        {%endif%}
 
         <div class="u-form u-form-1">
           <form action="{% url "find" %}" class="u-clearfix u-form-horizontal u-form-spacing-15 u-inner-form" style="padding: 15px;" source="searche">
@@ -73,10 +108,10 @@
                 <td>{{item.tecNumber}}</td>
                 <td>{{ accounting.counter}}</td>
                 {% if 'school.delete_accounting' in user.get_group_permissions%}
-                <td><a href = "delete/{{item.tecNumber}}">&#128465;&#65039</a></td>
+                <td><a href = "delete/{{item.id}}">&#128465;&#65039</a></td>
                 {%endif%}
                 {% if 'school.change_accounting' in user.get_group_permissions%}
-                <form method="post"><td><input type="hidden"><a href = "update/{{item.tecNumber}}">♻️</a></td></form>
+                <form method="post"><td><input type="hidden"><a href = "update/{{item.id}}">♻️</a></td></form>
               </tr>
               {%endif%}
               {% endfor %} 

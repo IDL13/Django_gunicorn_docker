@@ -33,6 +33,13 @@
         </button>
         </a>
 
+        <a href="{%url 'drop'%}" class="addlink">
+          <button type="button" class="btn btn-primary">
+            {% csrf_token %}
+            Удалить все записи  
+          </button>
+          </a>
+
         <div class="u-form u-form-1">
           <form action="{% url "find_storage" %}" class="u-clearfix u-form-horizontal u-form-spacing-15 u-inner-form" style="padding: 15px;" source="searche">
             <div class="u-form-group u-form-name u-label-none">
@@ -51,6 +58,7 @@
               <tr>
                 <th scope="col">Техника</th>
                 <th scope="col">Техномер</th>
+                <th scope="col">Время</th>
               </tr>
             </thead>
             <tbody>
@@ -58,16 +66,20 @@
               <tr>
                 <th scope="row">{{item.technincs}}</th>
                 <td>{{item.tecNumber}}</td>
+                <td>{{item.time}}</td>
                 {% if item.status == True%}
                   <td>✔️</td>
                 {% elif item.status == False %}
                   <td>❌</td>
                 {% endif %}
                 {% if 'school.delete_accounting' in user.get_group_permissions%}
-                <td><a href = "delete/{{item.tecNumber}}">&#128465;&#65039</a></td>
+                <td><a href = "delete/{{item.id}}">&#128465;&#65039</a></td>
                 {%endif%}
                 {% if 'school.change_accounting' in user.get_group_permissions%}
-                <form method="post"><td><input type="hidden"><a href = "update/{{item.tecNumber}}">♻️</a></td></form>
+                <form method="post"><td><input type="hidden"><a href = "update/{{item.id}}">♻️</a></td></form>
+                {%endif%}
+                {% if 'school.change_accounting' in user.get_group_permissions%}
+                <form method="post"><td><input type="hidden"><a href = "qr/{{item.id}}">&#127999</a></td></form>
                 {%endif%}
               </tr>
             {% endfor  %}
