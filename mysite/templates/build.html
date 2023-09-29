@@ -32,7 +32,7 @@
         </a>
         {%endif%}
         {%if 'school.view_store' in user.get_group_permissions%}
-        <a href="{%url 'storage'%}" class="addlink">
+        <a href="/login/storage/50" class="addlink">
           <button type="submit" class="btn btn-primary">
             {%csrf_token%}
             Склад

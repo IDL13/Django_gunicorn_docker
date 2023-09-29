@@ -112,7 +112,6 @@ class Table(ListView):
     
     def delete(request, id):
         try:
-
             user = Accounting.objects.get(id = id)
             user.delete()         
             return redirect('table')     
@@ -176,6 +175,18 @@ class Storage(ListView):
     model = Store
     template_name = 'storage.html'
     context_object_name = 'store'
+
+    def get_objects(request, count):
+        if count == 50:
+            nxt = count + 50
+            prev = 50
+            store = Store.objects.all()[:count+1]
+            return render(request, "storage.html", {"store": store, "next": nxt, "prev": prev})
+        else:
+            nxt = count + 50
+            prev = count - 50
+            store = Store.objects.all()[prev+1:count+1]
+            return render(request, "storage.html", {"store":store, "next": nxt, "prev": prev})
 
     def delete(request, id):
         try:

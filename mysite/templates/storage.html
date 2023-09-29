@@ -27,18 +27,20 @@
       <main class="px-2">
         
         <a href="{%url 'add_storage'%}" class="addlink">
-        <button type="button" class="btn btn-primary">
+        <button type="button" class="btn btn-primary" style = "margin:20px">
           {% csrf_token %}
           Добавить на Склад  
         </button>
         </a>
 
-        <a href="{%url 'drop'%}" class="addlink">
-          <button type="button" class="btn btn-primary">
+          <form action = "{%url 'drop'%}" method = "post">
+<!--        <a href="{%url 'drop'%}" class="addlink">-->
+          <button type="submit" class="btn btn-primary" style = "margin: 20px">
             {% csrf_token %}
             Удалить все записи  
           </button>
-          </a>
+<!--          </a>-->
+          </form>
 
         <div class="u-form u-form-1">
           <form action="{% url "find_storage" %}" class="u-clearfix u-form-horizontal u-form-spacing-15 u-inner-form" style="padding: 15px;" source="searche">
@@ -62,7 +64,7 @@
               </tr>
             </thead>
             <tbody>
-            {% for item in store  %} 
+            {% for item in store %}
               <tr>
                 <th scope="row">{{item.technincs}}</th>
                 <td>{{item.tecNumber}}</td>
@@ -86,10 +88,22 @@
             {%endblock%}
             </tbody>
           </table>
+        </form>
 
-                  </form>
+    <a href = "/login/storage/{{prev}}">
+        <button type="button" class="btn btn-primary" style = "margin:20px">
+          Назад
+        </button>
+
+        <a href = "/login/storage/{{next}}">
+        <button type="button" class="btn btn-primary" style = "margin:20px">
+          Дальше
+        </button>
+
       </main>
     </div>
+
+
      </body>
      {%else%}
      {%block error%}
@@ -117,6 +131,7 @@
                </div>
            </div>
        </section>
+
        <footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-ed1d">
          <div class="u-clearfix u-sheet u-sheet-1">
              <p class="u-small-text u-text u-text-variant u-text-1">Если у вас есть вопросы то пишите администратору L@gmail.com</p>

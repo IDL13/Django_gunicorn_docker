@@ -15,7 +15,7 @@ urlpatterns = [
        
        
        # storage urls
-       path('storage/', Storage.as_view(), name = "storage"),
+       path('storage/<int:count>', Storage.get_objects, name = "storage"),
        path('storage/add_storage',Add_storage.as_view(), name = 'add_storage'),
        path('storage/delete/<int:id>', Storage.delete, name = 'delete_storage'),
        path('storage/update/<int:id>', Storage.update, name = 'update_storage'),
