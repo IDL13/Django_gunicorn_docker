@@ -6,10 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="bc84890d-8300-45d4-8ab4-cf3c33183559" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/school/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/school/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/school/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/school/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/templates/build.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/templates/build.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/templates/storage.html" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/templates/storage.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,7 +29,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "dart.analysis.tool.window.visible": "false",
-    "last_opened_file_path": "E:/PROGRAMS/Python/Django_finish",
+    "last_opened_file_path": "E:/PROGRAMS/Python/lasertag",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -52,7 +48,8 @@
       <workItem from="1695323355848" duration="679000" />
       <workItem from="1695394231303" duration="2472000" />
       <workItem from="1695469637023" duration="54000" />
-      <workItem from="1695999138271" duration="4430000" />
+      <workItem from="1695999138271" duration="5341000" />
+      <workItem from="1696272893711" duration="131000" />
     </task>
     <servers />
   </component>
