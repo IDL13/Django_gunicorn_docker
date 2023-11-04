@@ -3,16 +3,16 @@ from typing import *
 
 class Csv:
     def __init__(self, filename = None):
-        self._file_name = filename
+        ...
         
     def __len__(self) -> int:
         return len(self.read_csv()) - 1 if len(self.read_csv()) != 0 else len(self.read_csv())
         
-    def read_csv(self) -> List[[str]]:
+    def read_csv(self, filename:object):
         csv_array = []
         
-        with open(self._file_name, "r", encoding="utf-8") as f:
-            csv_reader = csv.reader(f, delimiter = ";")
+        with filename.file.open(mode="r") as f:
+            csv_reader = csv.reader(f, delimiter = ";") 
             
             for row in csv_reader:
                 csv_array.append(row)

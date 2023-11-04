@@ -135,26 +135,21 @@ class Upload(ListView):
     #                         store.save()  
                                          
     #         return redirect("table")
-    
+       
     def read_from_xml(request, file):
         if request.method == 'GET':
             upload = File.objects.get(file = str(file))
             
-            with upload.file.open() as f:
-                soup = Soup(f.read(), "csv")
-    
-                for i in soup.find_all("Row", {"ss:AutoFitHeight":"0"}):
-                    store = Store()
-                    
-                    if i != None:
-                        all = i.find_all("Data", {"ss:Type":"String"})
-                        
-                        if len(all) > 5:
-                            store.technincs = all[1].text
-                            store.tecNumber = all[2].text
-                            store.time = all[5].text
-                            store.save()  
-                                         
+            csv = Csv()
+            csv_data = csv.read_csv(upload)
+            
+            for i in csv_data[1:]:
+                store = Store()
+                store.technincs = i[1]
+                store.tecNumber = i[3]
+                store.time = i[2]
+                store.save()
+                         
             return redirect("table")
     
     def all_xml(request):
