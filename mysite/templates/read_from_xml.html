@@ -13,7 +13,7 @@
         {% for item in upload  %} 
           <tr>
             <td>{{item.file}}</td>
-            <td><form method="post"><td><input type="hidden"><a href = "read_from_xml/{{item.file}}">Выбрать</a></td></form></td>
+            <td><form method="post"><td><input type="hidden"><a href = "read_from_csv/{{item.file}}">Выбрать</a></td></form></td>
           </tr>
         {% endfor  %}
         </tbody>

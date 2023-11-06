@@ -9,9 +9,9 @@ urlpatterns = [
        path ("table/delete/<int:id>/", Table.delete),
        path("table/update/<int:id>", Table.update),
        path("table/find/",Table.find, name = "find"),
-       path("table/save-in-xml", Upload.save_in_xml ,name = "save_in_xml"),
-       path("table/read_from_xml", Upload.all_xml, name = "all_xml"),
-       path("table/read_from_xml/<str:file>",Upload.read_from_xml, name = "read_from_xml" ),
+       path("table/save-in-csv", Upload.save_in_csv ,name = "save_in_csv"),
+       path("table/read_from_csv", Upload.all_csv, name = "all_csv"),
+       path("table/read_from_csv/<str:file>",Upload.read_from_csv, name = "read_from_csv" ),
        
        
        # storage urls

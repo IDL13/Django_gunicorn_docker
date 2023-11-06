@@ -66,7 +66,7 @@ class Upload(ListView):
     #     f.close()
     #     return redirect("table")
     
-    def save_in_xml(request):
+    def save_in_csv(request):
         users = Accounting.objects.all()
         dataSet = []
         
@@ -136,7 +136,7 @@ class Upload(ListView):
                                          
     #         return redirect("table")
        
-    def read_from_xml(request, file):
+    def read_from_csv(request, file):
         if request.method == 'GET':
             upload = File.objects.get(file = str(file))
             
@@ -152,7 +152,7 @@ class Upload(ListView):
                          
             return redirect("table")
     
-    def all_xml(request):
+    def all_csv(request):
         upload = File.objects.all()
         return render(request, 'read_from_xml.html', {'upload':upload})
 
@@ -194,7 +194,7 @@ class Table(ListView):
             people = Accounting.objects.all       
         return render(request, "find.html", {'people':people})
     
-    def save_in_xml(request):
+    def save_in_csv(request):
         user_info = Accounting.objects.all() 
               
         date = []
@@ -244,7 +244,7 @@ class Storage(ListView):
         try:
             technique = Store.objects.get(id=id)
             technique.delete()           
-            return redirect('storage')       
+            return redirect('stor')       
         except Accounting.DoesNotExist:
             return HttpResponseNotFound('<h2>Technique not found</h2>')
         
@@ -257,7 +257,7 @@ class Storage(ListView):
                 technique.tecNumber = request.POST.get('tecNumber')
                 technique.status = request.POST.get('status')
                 user.save()               
-                return redirect('storage')            
+                return redirect('stor')            
             else:
                 return render(request, 'update_storage.html')
         except Accounting.DoesNotExist:
@@ -288,7 +288,7 @@ class Storage(ListView):
     def drop(request):
         if request.method == 'POST':
             obj = Store.objects.all().delete()
-        return redirect("storage")
+        return redirect("stor")
                  
 
 class Add_accounting(CreateView):
@@ -302,7 +302,7 @@ class Add_storage(CreateView):
     form_class =  AddStorageForm
     template_name = 'add_storage.html'
     context_object_name = 'add_storage'
-    success_url = reverse_lazy('storage')
+    success_url = reverse_lazy('stor')
     
             
     
