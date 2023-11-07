@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="bc84890d-8300-45d4-8ab4-cf3c33183559" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mysite/school/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/school/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,7 +30,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "dart.analysis.tool.window.visible": "false",
-    "last_opened_file_path": "E:/PROGRAMS/Python/lasertag",
+    "last_opened_file_path": "E:/PROGRAMS/Python/Django_finish",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -50,6 +51,7 @@
       <workItem from="1695469637023" duration="54000" />
       <workItem from="1695999138271" duration="5341000" />
       <workItem from="1696272893711" duration="131000" />
+      <workItem from="1699338186089" duration="420000" />
     </task>
     <servers />
   </component>

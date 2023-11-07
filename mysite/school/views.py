@@ -15,14 +15,14 @@ from django.core.files.storage import FileSystemStorage
 from bs4 import BeautifulSoup as Soup
 from school.csv.csv_obj import Csv
 
-
+# Домашняя страница
 class FirsPage(ListView):
     template_name = 'home.html'
     
     def observe(request): 
         return render(request, 'home.html')
 
-
+# Страница авторизации 
 class LoginUser(LoginView):
     form_class = AuthenticationForm
     template_name = 'main_page.html'
@@ -30,42 +30,12 @@ class LoginUser(LoginView):
     def get_success_url(self):
         return reverse_lazy('table')
 
-
+# Онавление данных путум чтения или изменения CSV файлов
 class Upload(ListView):
     model = File
     template_name = 'simple_upload.html'
     context_object_name = 'upload'
-
-    # def save_in_xml(request):
-    #     user_info = Accounting.objects.all()
-    #     date = []
-        
-    #     for i in user_info:
-    #         arr = {}
-            
-    #         arr["user"] = str(i.users)
-    #         arr["tec"] = str(i.technincs)
-    #         arr["create"] = str(i.create)
-    #         arr["tecNumber"] = str(i.tecNumber)
-            
-    #         date.append(arr)  
-                  
-    #     table = ET.Element('table')
-        
-    #     for i, item in enumerate(date, 1):
-    #         person = ET.SubElement(table, 'person' + str(i))
-    #         ET.SubElement(person, 'user').text = item['user']
-    #         ET.SubElement(person, 'tec').text = item['tec']
-    #         ET.SubElement(person, 'create').text = item['create']
-    #         ET.SubElement(person, 'tecNumber').text = item['tecNumber']   
-                    
-    #     mydate = ET.tostring(table, encoding="unicode")
-        
-    #     f = open("mysite/static/xml/xml.xml", "w")       
-    #     f.write(mydate)       
-    #     f.close()
-    #     return redirect("table")
-    
+   
     def save_in_csv(request):
         users = Accounting.objects.all()
         dataSet = []
@@ -80,26 +50,12 @@ class Upload(ListView):
             
             dataSet.append(row)
             
-        csv = Csv("file.csv")
+        csv = Csv()
         err = csv.write_in_csv(dataSet=dataSet, path="mysite/static/csv/csv.csv")
         if err != 0:
             raise Exception("Запись прошла неудачно")
         
         return redirect("table")
-    
-    # def simple_upload(request): 
-    #     if request.method == 'POST' and request.FILES['myfile']:
-    #         myfile = request.FILES['myfile']
-                        
-    #         if myfile.content_type != "text/xml":
-    #             return HttpResponseNotFound('<h2>Uncorrect file</h2>')  
-                     
-    #         f = File()           
-    #         f.title = request.POST.get('title')          
-    #         f.file = request.FILES['myfile']           
-    #         f.save()            
-    #         return render(request, 'simple_upload.html')       
-    #     return render(request, 'simple_upload.html')
     
     def simple_upload(request): 
         if request.method == 'POST' and request.FILES['myfile']:
@@ -114,27 +70,6 @@ class Upload(ListView):
             f.save()            
             return render(request, 'simple_upload.html')       
         return render(request, 'simple_upload.html')
-    
-    # def read_from_xml(request, file):
-    #     if request.method == 'GET':
-    #         upload = File.objects.get(file = str(file))
-            
-    #         with upload.file.open() as f:
-    #             soup = Soup(f.read(), "xml")
-    
-    #             for i in soup.find_all('Row', {"ss:AutoFitHeight":"0"}):
-    #                 store = Store()
-                    
-    #                 if i != None:
-    #                     all = i.find_all("Data", {"ss:Type":"String"})
-                        
-    #                     if len(all) > 5:
-    #                         store.technincs = all[1].text
-    #                         store.tecNumber = all[2].text
-    #                         store.time = all[5].text
-    #                         store.save()  
-                                         
-    #         return redirect("table")
        
     def read_from_csv(request, file):
         if request.method == 'GET':
@@ -156,7 +91,8 @@ class Upload(ListView):
         upload = File.objects.all()
         return render(request, 'read_from_xml.html', {'upload':upload})
 
-   
+
+# Страница книги учета   
 class Table(ListView):
     model = Accounting
     template_name = 'build.html'
@@ -222,7 +158,8 @@ class Table(ListView):
         f.close()
         return redirect("table")
  
-        
+
+# Страница склада        
 class Storage(ListView):
     model = Store
     template_name = 'storage.html'
@@ -291,13 +228,14 @@ class Storage(ListView):
         return redirect("stor")
                  
 
+# Добавление в книгу учета
 class Add_accounting(CreateView):
     form_class =  AddAccountingForm
     template_name = 'add_accounting.html'
     context_object_name = 'add_acounting'
     success_url = reverse_lazy('table')
 
-   
+# Добавление предмета на склад   
 class Add_storage(CreateView):
     form_class =  AddStorageForm
     template_name = 'add_storage.html'
