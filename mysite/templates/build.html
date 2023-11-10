@@ -32,7 +32,7 @@
         </a>
         {%endif%}
         {%if 'school.view_store' in user.get_group_permissions%}
-        <a href="{%url 'storage'%}" class="addlink">
+        <a href="/login/storage/50" class="addlink">
           <button type="submit" class="btn btn-primary">
             {%csrf_token%}
             Склад
@@ -41,19 +41,19 @@
         {%endif%}
   
         {%if 'school.view_store' in user.get_group_permissions%}
-        <a href="{%url 'save_in_xml'%}" class="addlink">
+        <a href="{%url 'save_in_csv'%}" class="addlink">
           <button type="submit" class="btn btn-primary">
             {%csrf_token%}
-            Сохранить в xml
+            Сохранить в csv
           </button>
         </a>
         {%endif%}
 
         {%if 'school.view_store' in user.get_group_permissions%}
-        <a href="/static/xml/xml.xml" class="addlink" download>
+        <a href="/static/csv/csv.csv" class="addlink" download>
           <button type="submit" class="btn btn-primary">
             {%csrf_token%}
-            Скачать xml
+            Скачать csv
           </button>
         </a>
         {%endif%}
@@ -62,15 +62,15 @@
         <a href="{%url 'upload'%}" class="addlink">
           <button type="submit" class="btn btn-primary">
             {%csrf_token%}
-            Загрузка из xml
+            Загрузка из csv
           </button>
         </a>
         {%endif%}
         {%if 'school.view_store' in user.get_group_permissions%}
-        <a href="{%url 'all_xml'%}" class="addlink">
+        <a href="{%url 'all_csv'%}" class="addlink">
           <button type="submit" class="btn btn-primary">
             {%csrf_token%}
-            Чтение из xml
+            Чтение из csv
           </button>
         </a>
         {%endif%}
