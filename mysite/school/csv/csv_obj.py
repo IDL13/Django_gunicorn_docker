@@ -2,6 +2,7 @@ import csv
 
 from typing import *
 
+
 class Csv:   
     def __len__(self) -> int:
         return len(self.read_csv()) - 1 if len(self.read_csv()) != 0 else len(self.read_csv())
@@ -25,7 +26,7 @@ class Csv:
     def write_in_csv(dataSet:List[str], path:str) -> int:
         try:
             with open(path, "w", newline="\n", encoding="cp1251") as f: 
-                writer = csv.writer(f, delimiter = ";")
+                writer = csv.writer(f, delimiter=";")
                 writer.writerow(["Основное средство", "Гр. уч", "Инвентарный номер", "ЦМО", "Дата ввода в эксплуатацию", "Дата принятия к учету", "Количество"])
                 
                 for row in dataSet:
