@@ -79,11 +79,15 @@ class Upload(ListView):
             csv_data = csv.read_csv(upload)
             
             for i in csv_data[1:]:
-                store = Store()
-                store.technincs = i[1]
-                store.tecNumber = i[3]
-                store.time = i[2]
-                store.save()
+                svt = SVT()
+                svt.name = i[0]
+                svt.acounting = i[1]
+                svt.inv_number = i[2]
+                svt.cmo = i[3]
+                svt.data_get = i[4]
+                svt.data_inp = i[5]
+                svt.quantity = i[6]
+                svt.save()
                          
             return redirect("table")
     
@@ -161,7 +165,7 @@ class Table(ListView):
 
 # Страница склада        
 class Storage(ListView):
-    model = Store
+    model = SVT
     template_name = 'storage.html'
     context_object_name = 'store'
 
@@ -169,12 +173,12 @@ class Storage(ListView):
         if count == 50:
             nxt = count + 50
             prev = 50
-            store = Store.objects.all()[:count+1]
+            store = SVT.objects.all()[:count]
             return render(request, "storage.html", {"store": store, "next": nxt, "prev": prev})
         else:
             nxt = count + 50
             prev = count - 50
-            store = Store.objects.all()[prev+1:count+1]
+            store = SVT.objects.all()[prev+1:count+1]
             return render(request, "storage.html", {"store":store, "next": nxt, "prev": prev})
 
     def delete(request, id):
@@ -224,7 +228,7 @@ class Storage(ListView):
     
     def drop(request):
         if request.method == 'POST':
-            obj = Store.objects.all().delete()
+            obj = SVT.objects.all().delete()
         return redirect("stor")
                  
 

@@ -58,22 +58,30 @@
          <table class="table table-dark">
             <thead>
               <tr>
-                <th scope="col">Техника</th>
-                <th scope="col">Техномер</th>
-                <th scope="col">Время</th>
+                <th scope="col">Основное средство</th>
+                <th scope="col">Гр. уч.</th>
+                <th scope="col">Инвентарник</th>
+                <th scope="col">ЦМО</th>
+                <th scope="col">Дата ввода в эксплуатацию</th>
+                <th scope="col">Дата принятия к учету</th>
+                <th scope="col">Количество</th>
               </tr>
             </thead>
             <tbody>
             {% for item in store %}
               <tr>
-                <th scope="row">{{item.technincs}}</th>
-                <td>{{item.tecNumber}}</td>
-                <td>{{item.time}}</td>
-                {% if item.status == True%}
+                <th scope="row">{{item.name}}</th>
+                <td>{{item.acounting}}</td>
+                <td>{{item.inv_number}}</td>
+                <th >{{item.cmo}}</th>
+                <td>{{item.data_get}}</td>
+                <td>{{item.data_inp}}</td>
+                <td>{{item.quantity}}</td>
+                {% comment %} {% if item.status == True%}
                   <td>✔️</td>
                 {% elif item.status == False %}
                   <td>❌</td>
-                {% endif %}
+                {% endif %} {% endcomment %}
                 {% if 'school.delete_accounting' in user.get_group_permissions%}
                 <td><a href = "delete/{{item.id}}">&#128465;&#65039</a></td>
                 {%endif%}

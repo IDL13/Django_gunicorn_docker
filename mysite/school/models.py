@@ -27,6 +27,19 @@ class Store(models.Model):
     class Meta:
         verbose_name = 'Склад'
         verbose_name_plural = 'Склад'
+
+class SVT(models.Model):
+    name = models.CharField(max_length = 500)
+    acounting = models.CharField(max_length = 100)
+    inv_number = models.CharField(max_length = 50)
+    cmo = models.CharField(max_length = 5000)
+    data_get = models.CharField(max_length = 500, default = "00.00.0000")
+    data_inp = models.CharField(max_length = 500, default = "00.00.0000")
+    quantity = models.CharField(max_length = 100)
+
+    class Meta:
+        verbose_name = 'СВТ'
+        verbose_name_plural = 'СВТ'
         
 class File(models.Model):
     title = models.CharField(max_length=50)
