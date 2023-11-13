@@ -5,22 +5,42 @@
 <h5>Редактирование запись</h5>
 <a href = {% url "table"%}><h6>На главную</h6></a>
 
-<h5><form class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column " method = "post" action="{% url 'add_storage' %}">
+<h5><form class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column " method = "post" action="{{technique.id}}">
   {% csrf_token %}
         <p>
-            <label>Устройство</label><br>
-            <input type="text" name="technincs" value="{{technique.technincs}}" />
+            <label>Название</label><br>
+            <input type="text" name="name" value="{{technique.name}}" />
             </p>
             <p>
-                <label>Техномер</label><br>
-                <input type="text" name="tecNumber" value="{{technique.tecNumber}}" />
+              <label>Гр.уч</label><br>
+              <input type="text" name="acounting" value="{{technique.acounting}}" />
+              </p>
+              <p>
+                <label>Инвентарник</label><br>
+                <input type="text" name="inv_number" value="{{technique.inv_number}}" />
                 </p>
-
                 <p>
-                    <label class="form-label" for="id_status">Status: </label><br>
-                    <input type="checkbox" name="status" id="id_status" value = "{{technique.status}}" checked>
+                  <label>Серийник</label><br>
+                  <input type="text" name="ser_number" value="{{technique.ser_number}}" />
+                  </p>
+                  <p>
+                    <label>ЦМО</label><br>
+                    <input type="text" name="cmo" value="{{technique.cmo}}" />
+                    </p>
+                    <p>
+                      <label>Дата ввода</label><br>
+                      <input type="text" name="data_get" value="{{technique.data_get}}" />
+                      </p>
+                      <p>
+                        <label>Дата принятия</label><br>
+                        <input type="text" name="data_inp" value="{{technique.data_inp}}" />
+                        </p>
+            <p>
+                <label>Кол-во</label><br>
+                <input type="text" name="quantity" value="{{technique.quantity}}" />
                 </p>
 
   <button class="btn btn-dark" tupe = "submit" ><h6>Сохранить</h6></button>
+              </form>
 </main>
 {% endblock  %}

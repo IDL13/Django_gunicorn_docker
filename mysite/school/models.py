@@ -31,6 +31,7 @@ class SVT(models.Model):
     name = models.CharField(max_length=500)
     acounting = models.CharField(max_length=100)
     inv_number = models.CharField(max_length=50)
+    ser_number = models.CharField(max_length=500, default="00000000000")
     cmo = models.CharField(max_length=5000)
     data_get = models.CharField(max_length=500, default="00.00.0000")
     data_inp = models.CharField(max_length=500, default="00.00.0000")

@@ -4,7 +4,7 @@ from django.shortcuts import redirect, render
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound
 from django.urls import reverse_lazy
 from .forms import *
-from django.views.generic import ListView, DeleteView, CreateView
+from django.views.generic import ListView, DeleteView, CreateView, UpdateView
 from django.contrib.auth.views import LoginView
 from django.db.models import Q
 from school.csv.csv_obj import Csv
@@ -159,13 +159,19 @@ class Storage(ListView):
         
     def update(request, id):
         try:
-            technique = Store.objects.get(id=id)
+            technique = SVT.objects.get(id=id)   
             
             if request.method == 'POST':
-                technique.technincs = request.POST.get('technincs')
-                technique.tecNumber = request.POST.get('tecNumber')
-                technique.status = request.POST.get('status')
-                user.save()               
+                technique = SVT.objects.get(id=id)
+                technique.name=request.POST.get('name')
+                technique.acounting=request.POST.get('acounting')
+                technique.inv_number=request.POST.get('inv_number')
+                technique.ser_number=request.POST.get('ser_number')
+                technique.cmo=request.POST.get('cmo')
+                technique.data_get=request.POST.get('data_get')
+                technique.data_inp=request.POST.get('data_inp')
+                technique.quantity=request.POST.get('quantity')
+                technique.save()
                 return redirect('stor')            
             else:
                 return render(request, 'update_storage.html')
@@ -214,6 +220,7 @@ class Add_storage(CreateView):
     template_name = 'add_storage.html'
     context_object_name = 'add_storage'
     success_url = reverse_lazy('stor')
+    
     
             
     
