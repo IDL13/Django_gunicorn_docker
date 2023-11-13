@@ -123,13 +123,21 @@ class Table(ListView):
             return HttpResponseNotFound('<h2>Person not found</h2>')
         
     def find(request):
-        search_query = request.GET.get('find','')     
+        # search_query = request.GET.get('find','')     
+        # if search_query:
+        #     people = Accounting.objects.filter(Q(tecNumber__icontains = search_query) \
+        #         | Q(users__icontains = search_query) | Q(technincs__icontains = search_query))
+        # else:
+        #     people = Accounting.objects.all       
+        # return render(request, "find.html", {'people':people})
+        search_query = request.GET.get('find','')
+        
         if search_query:
-            people = Accounting.objects.filter(Q(tecNumber__icontains = search_query) \
-                | Q(users__icontains = search_query) | Q(technincs__icontains = search_query))
+            obj = SVT.objects.filter(Q(name__icontains=search_query) | Q(inv_number__icontains=search_query) |\
+                                     Q(cmo__icontains=search_query))
         else:
-            people = Accounting.objects.all       
-        return render(request, "find.html", {'people':people})
+            obj = SVT.objects.all
+        return render(request, "find.html", {'object': obj})
 
 # Страница склада        
 class Storage(ListView):

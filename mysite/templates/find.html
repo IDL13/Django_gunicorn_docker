@@ -2,36 +2,31 @@
 
 {%block table%}
 <a href = {% url "table"%}><h6><-Назад</h6></a>
-<table class="table table-dark">
+
+<form id="changelist-form" method="post" novalidate><input type="hidden">
+{% csrf_token %}
+ <table class="table table-dark">
     <thead>
       <tr>
-        <th scope = "col">ID</th>
-        <th scope = "col">Пользователь</th>
-        <th scope="col">Техника</th>
-        <th scope="col">Дата</th>
-        <th scope="col">Техномер</th>
-        <th scope="col"></th>
-        <th scope = "col"></th>
+        <th scope="col">Основное средство</th>
+          <th scope="col">Гр. уч.</th>
+          <th scope="col">Инвентарник</th>
+          <th scope="col">Серийник</th>
+          <th scope="col">Кабинет</th>
+          <th scope="col">Количество</th>
       </tr>
     </thead>
     <tbody>
-       {% for item in people %}
+    {% for item in object  %} 
       <tr>
-        <th scope="row">{{item.id}}</th>
-        <th scope="row">{{item.users}}</th>
-        <td>{{item.technincs}}</td>
-        <td>{{item.create}}</td>
-        <td>{{item.tecNumber}}</td>
-        <td>{{ accounting.counter}}</td>
-        {% if 'school.delete_accounting' in user.get_group_permissions%}
+        <th scope="row">{{item.name}}</th>
+                <td>{{item.acounting}}</td>
+                <td>{{item.inv_number}}</td>
+                <td>{{item.ser_number}}</td>
+                <th >{{item.kab}}</th>
+                <td>{{item.quantity}}</td>
         <td><a href = "delete/{{item.tecNumber}}">&#128465;&#65039</a></td>
-        {%endif%}
-        {% if 'school.change_accounting' in user.get_group_permissions%}
         <form method="post"><td><input type="hidden"><a href = "update/{{item.tecNumber}}">♻️</a></td></form>
       </tr>
-      {%endif%}
-      {% endfor %} 
-    </tbody>
-  </table>
-
-  {%endblock%}
+    {% endfor  %}
+    {%endblock%}
