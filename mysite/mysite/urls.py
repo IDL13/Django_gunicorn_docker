@@ -4,7 +4,6 @@ from django.conf.urls.static import static
 
 from django.urls import *
 from school.views import *
-from django.views.generic import RedirectView
 
 #startp paths
 urlpatterns = [

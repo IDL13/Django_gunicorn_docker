@@ -1,18 +1,12 @@
 import qrcode
-import xml.etree.ElementTree as ET
 
-from operator import getitem
 from django.shortcuts import redirect, render
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound
 from django.urls import reverse_lazy
-from .models import *
 from .forms import *
-from django.views.generic import ListView, DeleteView, CreateView
+from django.views.generic import ListView, DeleteView, CreateView, UpdateView
 from django.contrib.auth.views import LoginView
-from django.contrib.auth import login, logout, authenticate
 from django.db.models import Q
-from django.core.files.storage import FileSystemStorage
-from bs4 import BeautifulSoup as Soup
 from school.csv.csv_obj import Csv
 
 # Домашняя страница
@@ -37,16 +31,19 @@ class Upload(ListView):
     context_object_name = 'upload'
    
     def save_in_csv(request):
-        users = Accounting.objects.all()
+        users = SVT.objects.all()
         dataSet = []
         
         for i in users:
             row = []
             
-            row.append(str(i.users))
-            row.append(str(i.technincs))
-            row.append(str(i.create))
-            row.append(str(i.tecNumber))
+            row.append(str(i.name))
+            row.append(str(i.acounting))
+            row.append(str(i.inv_number))
+            row.append(str(i.cmo))
+            row.append(str(i.data_get))
+            row.append(str(i.data_inp))
+            row.append(str(i.quantity))
             
             dataSet.append(row)
             
@@ -133,35 +130,6 @@ class Table(ListView):
         else:
             people = Accounting.objects.all       
         return render(request, "find.html", {'people':people})
-    
-    def save_in_csv(request):
-        user_info = Accounting.objects.all() 
-              
-        date = []
-       
-        for i in user_info:
-            arr = {}
-            arr["user"] = str(i.users)
-            arr["tec"] = str(i.technincs)
-            arr["create"] = str(i.create)
-            arr["tecNumber"] = str(i.tecNumber)
-            date.append(arr)      
-        table = ET.Element('table')
-
-        for i, item in enumerate(date, 1):
-            person = ET.SubElement(table, 'person' + str(i))
-            ET.SubElement(person, 'user').text = item['user']
-            ET.SubElement(person, 'tec').text = item['tec']
-            ET.SubElement(person, 'create').text = item['create']
-            ET.SubElement(person, 'tecNumber').text = item['tecNumber']     
-                  
-        mydate = ET.tostring(table, encoding="unicode")
-        
-        f = open("mysite/static/xml/xml.xml", "w")
-        f.write(mydate)
-        f.close()
-        return redirect("table")
- 
 
 # Страница склада        
 class Storage(ListView):
@@ -178,12 +146,12 @@ class Storage(ListView):
         else:
             nxt = count + 50
             prev = count - 50
-            store = SVT.objects.all()[prev+1:count+1]
+            store = SVT.objects.all()[prev:count]
             return render(request, "storage.html", {"store":store, "next": nxt, "prev": prev})
 
     def delete(request, id):
         try:
-            technique = Store.objects.get(id=id)
+            technique = SVT.objects.get(id=id)
             technique.delete()           
             return redirect('stor')       
         except Accounting.DoesNotExist:
@@ -191,16 +159,22 @@ class Storage(ListView):
         
     def update(request, id):
         try:
-            technique = Store.objects.get(id=id)
+            svt = SVT.objects.get(id=id)   
             
             if request.method == 'POST':
-                technique.technincs = request.POST.get('technincs')
-                technique.tecNumber = request.POST.get('tecNumber')
-                technique.status = request.POST.get('status')
-                user.save()               
-                return redirect('stor')            
+                technique = SVT.objects.get(id=id)
+                technique.name=request.POST.get('name')
+                technique.acounting=request.POST.get('acounting')
+                technique.inv_number=request.POST.get('inv_number')
+                technique.ser_number=request.POST.get('ser_number')
+                technique.cmo=request.POST.get('cmo')
+                technique.data_get=request.POST.get('data_get')
+                technique.data_inp=request.POST.get('data_inp')
+                technique.quantity=request.POST.get('quantity')
+                technique.save()
+                return redirect('stor')           
             else:
-                return render(request, 'update_storage.html')
+                return render(request, "update_storage.html", {"svt": svt})
         except Accounting.DoesNotExist:
             return HttpResponseNotFound('<h2>Person not found</h2>')
         
@@ -208,14 +182,15 @@ class Storage(ListView):
         search_query = request.GET.get('find','')
         
         if search_query:
-            obj = Store.objects.filter(Q(tecNumber__icontains = search_query) | Q(technincs__icontains = search_query))
+            obj = SVT.objects.filter(Q(name__icontains=search_query) | Q(inv_number__icontains=search_query) |\
+                                     Q(cmo__icontains=search_query))
         else:
-            obj = Store.objects.all        
-        return render(request, "find_storage.html", {'object':obj})
+            obj = SVT.objects.all
+        return render(request, "find_storage.html", {'object': obj})
     
     def qr(request, id):
-        obj = Store.objects.get(id=id)       
-        data = "Техника:" + " " + str(obj.technincs) + "\n" + "Техномер:" + " " + str(obj.tecNumber) + "\n"
+        obj = SVT.objects.get(id=id)
+        data = "Техника:" + " " + str(obj.name) + "\n" + "Техномер:" + " " + str(obj.inv_number) + "\n"
         data = data.encode("cp1251")
         filename = "qr" + str(id) +".png"
         img = qrcode.make(data)
@@ -234,17 +209,18 @@ class Storage(ListView):
 
 # Добавление в книгу учета
 class Add_accounting(CreateView):
-    form_class =  AddAccountingForm
+    form_class = AddAccountingForm
     template_name = 'add_accounting.html'
     context_object_name = 'add_acounting'
     success_url = reverse_lazy('table')
 
 # Добавление предмета на склад   
 class Add_storage(CreateView):
-    form_class =  AddStorageForm
+    form_class = AddStorageForm
     template_name = 'add_storage.html'
     context_object_name = 'add_storage'
     success_url = reverse_lazy('stor')
+    
     
             
     

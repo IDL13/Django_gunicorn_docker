@@ -31,9 +31,8 @@ class AddStorageForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         
     class Meta:
-        model = Store
-        fields = ['technincs','tecNumber','time','status']
-
+        model = SVT
+        fields = ['name','acounting','inv_number','ser_number', 'cmo', 'data_get', 'data_inp', 'quantity']
         
 class AddAccountingForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
