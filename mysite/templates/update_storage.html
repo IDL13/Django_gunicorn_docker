@@ -9,35 +9,35 @@
   {% csrf_token %}
         <p>
             <label>Название</label><br>
-            <input type="text" name="name" value="{{technique.name}}" />
+            <textarea type="text" name="name">{{svt.name}}</textarea>
             </p>
             <p>
               <label>Гр.уч</label><br>
-              <input type="text" name="acounting" value="{{technique.acounting}}" />
+              <input type="text" name="acounting" value="{{svt.acounting}}" />
               </p>
               <p>
                 <label>Инвентарник</label><br>
-                <input type="text" name="inv_number" value="{{technique.inv_number}}" />
+                <input type="text" name="inv_number" value="{{svt.inv_number}}" />
                 </p>
                 <p>
                   <label>Серийник</label><br>
-                  <input type="text" name="ser_number" value="{{technique.ser_number}}" />
+                  <input type="text" name="ser_number" value="{{svt.ser_number}}" />
                   </p>
                   <p>
                     <label>ЦМО</label><br>
-                    <input type="text" name="cmo" value="{{technique.cmo}}" />
+                    <textarea type="text" name="cmo"/>{{svt.cmo}}</textarea>
                     </p>
                     <p>
                       <label>Дата ввода</label><br>
-                      <input type="text" name="data_get" value="{{technique.data_get}}" />
+                      <input type="text" name="data_get" value="{{svt.data_get}}" />
                       </p>
                       <p>
                         <label>Дата принятия</label><br>
-                        <input type="text" name="data_inp" value="{{technique.data_inp}}" />
+                        <input type="text" name="data_inp" value="{{svt.data_inp}}" />
                         </p>
             <p>
                 <label>Кол-во</label><br>
-                <input type="text" name="quantity" value="{{technique.quantity}}" />
+                <input type="text" name="quantity" value="{{svt.quantity}}" />
                 </p>
 
   <button class="btn btn-dark" tupe = "submit" ><h6>Сохранить</h6></button>

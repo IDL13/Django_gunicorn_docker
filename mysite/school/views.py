@@ -159,7 +159,7 @@ class Storage(ListView):
         
     def update(request, id):
         try:
-            technique = SVT.objects.get(id=id)   
+            svt = SVT.objects.get(id=id)   
             
             if request.method == 'POST':
                 technique = SVT.objects.get(id=id)
@@ -172,9 +172,9 @@ class Storage(ListView):
                 technique.data_inp=request.POST.get('data_inp')
                 technique.quantity=request.POST.get('quantity')
                 technique.save()
-                return redirect('stor')            
+                return redirect('stor')           
             else:
-                return render(request, 'update_storage.html')
+                return render(request, "update_storage.html", {"svt": svt})
         except Accounting.DoesNotExist:
             return HttpResponseNotFound('<h2>Person not found</h2>')
         
