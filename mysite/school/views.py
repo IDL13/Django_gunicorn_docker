@@ -253,11 +253,10 @@ class Migration(ListView):
                 technique.inv_number=request.POST.get('inv_number')
                 technique.ser_number=request.POST.get('ser_number')
                 technique.cmo=request.POST.get('cmo')
-                technique.data_get=request.POST.get('data_get')
-                technique.data_inp=request.POST.get('data_inp')
+                technique.kab=request.POST.get('kab')
                 technique.quantity=request.POST.get('quantity')
                 technique.save()
-                return redirect('stor')           
+                return redirect('table')           
             else:
                 return render(request, "update_book.html", {"svt": svt})
         except Accounting.DoesNotExist:

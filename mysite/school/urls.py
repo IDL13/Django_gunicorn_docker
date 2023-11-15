@@ -29,5 +29,5 @@ urlpatterns = [
        path("upload/", Upload.simple_upload, name = "upload"),
        path("migrate/", Migration.make_migration, name = "migrate"),
        path("drop_migration/", Migration.drop_migration, name = "drop_migration"),
-       path("login/book/update/<int:id>/", Migration.update_acountingBook, name = "update_migration"),
+       path("table/find/book/update/<int:id>", Migration.update_acountingBook, name = "update_migration"),
 ]
