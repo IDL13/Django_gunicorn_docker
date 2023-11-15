@@ -126,10 +126,10 @@ class Table(ListView):
         search_query = request.GET.get('school','')
         
         if search_query:
-            obj = SVT.objects.filter(Q(name__icontains=search_query) | Q(inv_number__icontains=search_query) |\
+            obj = AcountingBook.objects.filter(Q(name__icontains=search_query) | Q(inv_number__icontains=search_query) |\
                                      Q(cmo__icontains=search_query))
         else:
-            obj = SVT.objects.all
+            obj = AcountingBook.objects.all
         return render(request, "find.html", {'object': obj})
 
 # Страница склада        
@@ -221,6 +221,47 @@ class Add_storage(CreateView):
     template_name = 'add_storage.html'
     context_object_name = 'add_storage'
     success_url = reverse_lazy('stor')
+    
+
+class Migration(ListView):
+    def make_migration(request):
+        old = SVT.objects.all()
+        for i in range(len(old)):
+            new = AcountingBook()
+            new.name = old[i].name
+            new.acounting = old[i].acounting
+            new.cmo = old[i].cmo
+            new.inv_number = old[i].inv_number
+            new.ser_number = old[i].ser_number
+            new.kab = 000
+            new.quantity = old[i].quantity
+            new.save()
+        return render(request, "storage.html")
+
+    def drop_migration(request):
+        obj = AcountingBook.objects.all().delete()
+        return render(request, "storage.html")
+    
+    def update_acountingBook(request, id):
+        try:
+            svt = AcountingBook.objects.get(id=id)   
+            
+            if request.method == 'POST':
+                technique = AcountingBook.objects.get(id=id)
+                technique.name=request.POST.get('name')
+                technique.acounting=request.POST.get('acounting')
+                technique.inv_number=request.POST.get('inv_number')
+                technique.ser_number=request.POST.get('ser_number')
+                technique.cmo=request.POST.get('cmo')
+                technique.data_get=request.POST.get('data_get')
+                technique.data_inp=request.POST.get('data_inp')
+                technique.quantity=request.POST.get('quantity')
+                technique.save()
+                return redirect('stor')           
+            else:
+                return render(request, "update_book.html", {"svt": svt})
+        except Accounting.DoesNotExist:
+            return HttpResponseNotFound('<h2>Person not found</h2>')
     
     
             

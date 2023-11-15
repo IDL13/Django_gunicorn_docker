@@ -1,12 +1,26 @@
 from django.db import models
 
-
-
 class Accounting(models.Model):
     users = models.CharField(max_length=30, verbose_name='Пользователь')
     technincs = models.CharField(max_length=50, verbose_name='Техника')
     create = models.DateField(auto_now=True)
     tecNumber = models.IntegerField(verbose_name='Техномер')
+
+    def __str__(self):
+        return self.users
+
+    class Meta:
+        verbose_name = 'Учётная книга'
+        verbose_name_plural = 'Учётная книга'
+
+class AcountingBook(models.Model):
+    name = models.CharField(max_length=500)
+    acounting = models.CharField(max_length=100)
+    inv_number = models.CharField(max_length=50)
+    ser_number = models.CharField(max_length=500, default="00000000000")
+    cmo = models.CharField(max_length=5000, default="...")
+    kab = models.CharField(max_length=5000, default=000)
+    quantity = models.CharField(max_length=100)
 
     def __str__(self):
         return self.users

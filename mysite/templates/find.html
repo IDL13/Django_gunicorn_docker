@@ -26,7 +26,7 @@
                 <th >{{item.kab}}</th>
                 <td>{{item.quantity}}</td>
         <td><a href = "delete/{{item.tecNumber}}">&#128465;&#65039</a></td>
-        <form method="post"><td><input type="hidden"><a href = "update/{{item.tecNumber}}">♻️</a></td></form>
+        <form method="post"><td><input type="hidden"><a href = "book/update{{item.id}}">♻️</a></td></form>
       </tr>
     {% endfor  %}
     {%endblock%}
