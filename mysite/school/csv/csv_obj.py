@@ -27,7 +27,7 @@ class Csv:
         try:
             with open(path, "w", newline="\n", encoding="cp1251") as f: 
                 writer = csv.writer(f, delimiter=";")
-                writer.writerow(["Основное средство", "Гр. уч", "Инвентарный номер", "ЦМО", "Дата ввода в эксплуатацию", "Дата принятия к учету", "Количество"])
+                writer.writerow(["Основное средство", "Гр. уч", "Инвентарный номер","Серийный номер" "ЦМО", "Дата ввода в эксплуатацию", "Дата принятия к учету", "Количество"])
                 
                 for row in dataSet:
                     writer.writerow(row) 

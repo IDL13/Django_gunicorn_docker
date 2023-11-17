@@ -40,6 +40,7 @@ class Upload(ListView):
             row.append(str(i.name))
             row.append(str(i.acounting))
             row.append(str(i.inv_number))
+            row.append(str(i.ser_number))
             row.append(str(i.cmo))
             row.append(str(i.data_get))
             row.append(str(i.data_inp))
