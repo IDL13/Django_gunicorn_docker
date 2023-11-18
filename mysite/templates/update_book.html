@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block form %}
+<main style = "margin-left: auto; margin-right:auto" >
+<h5>Редактирование запись</h5>
+<a href = {% url "table"%}><h6>На главную</h6></a>
+
+<h5><form class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column " method = "post" action="{{technique.id}}">
+  {% csrf_token %}
+        <p>
+            <label>Название</label><br>
+            <textarea type="text" name="name">{{svt.name}}</textarea>
+            </p>
+            <p>
+              <label>Гр.уч</label><br>
+              <input type="text" name="acounting" value="{{svt.acounting}}" />
+              </p>
+              <p>
+                <label>Инвентарник</label><br>
+                <input type="text" name="inv_number" value="{{svt.inv_number}}" />
+                </p>
+                <p>
+                  <label>ЦМО</label><br>
+                  <input type="text" name="cmo" value="{{svt.cmo}}" />
+                  </p>
+                  <p>
+                    <p>
+                      <label>Серийник</label><br>
+                      <input type="text" name="ser_number" value="{{svt.ser_number}}" />
+                      </p>
+                      <p>
+                    <label>Кабинет</label><br>
+                    <input type="text" name="kab" value="{{svt.kab}}" />
+                    </p>
+            <p>
+                <label>Кол-во</label><br>
+                <input type="text" name="quantity" value="{{svt.quantity}}" />
+                </p>
+
+  <button class="btn btn-dark" tupe = "submit" ><h6>Сохранить</h6></button>
+              </form>
+</main>
+{% endblock  %}

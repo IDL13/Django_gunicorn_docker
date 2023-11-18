@@ -40,6 +40,7 @@ class Upload(ListView):
             row.append(str(i.name))
             row.append(str(i.acounting))
             row.append(str(i.inv_number))
+            row.append(str(i.ser_number))
             row.append(str(i.cmo))
             row.append(str(i.data_get))
             row.append(str(i.data_inp))
@@ -123,13 +124,14 @@ class Table(ListView):
             return HttpResponseNotFound('<h2>Person not found</h2>')
         
     def find(request):
-        search_query = request.GET.get('find','')     
+        search_query = request.GET.get('school','')
+        
         if search_query:
-            people = Accounting.objects.filter(Q(tecNumber__icontains = search_query) \
-                | Q(users__icontains = search_query) | Q(technincs__icontains = search_query))
+            obj = AcountingBook.objects.filter(Q(name__icontains=search_query) | Q(inv_number__icontains=search_query) |\
+                                     Q(cmo__icontains=search_query))
         else:
-            people = Accounting.objects.all       
-        return render(request, "find.html", {'people':people})
+            obj = AcountingBook.objects.all
+        return render(request, "find.html", {'object': obj})
 
 # Страница склада        
 class Storage(ListView):
@@ -220,6 +222,46 @@ class Add_storage(CreateView):
     template_name = 'add_storage.html'
     context_object_name = 'add_storage'
     success_url = reverse_lazy('stor')
+    
+
+class Migration(ListView):
+    def make_migration(request):
+        old = SVT.objects.all()
+        for i in range(len(old)):
+            new = AcountingBook()
+            new.name = old[i].name
+            new.acounting = old[i].acounting
+            new.cmo = old[i].cmo
+            new.inv_number = old[i].inv_number
+            new.ser_number = old[i].ser_number
+            new.kab = 000
+            new.quantity = old[i].quantity
+            new.save()
+        return render(request, "storage.html")
+
+    def drop_migration(request):
+        obj = AcountingBook.objects.all().delete()
+        return render(request, "storage.html")
+    
+    def update_acountingBook(request, id):
+        try:
+            svt = AcountingBook.objects.get(id=id)   
+            
+            if request.method == 'POST':
+                technique = AcountingBook.objects.get(id=id)
+                technique.name=request.POST.get('name')
+                technique.acounting=request.POST.get('acounting')
+                technique.inv_number=request.POST.get('inv_number')
+                technique.ser_number=request.POST.get('ser_number')
+                technique.cmo=request.POST.get('cmo')
+                technique.kab=request.POST.get('kab')
+                technique.quantity=request.POST.get('quantity')
+                technique.save()
+                return redirect('table')           
+            else:
+                return render(request, "update_book.html", {"svt": svt})
+        except Accounting.DoesNotExist:
+            return HttpResponseNotFound('<h2>Person not found</h2>')
     
     
             

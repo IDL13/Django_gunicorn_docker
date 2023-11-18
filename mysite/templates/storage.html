@@ -33,6 +33,20 @@
         </button>
         </a>
 
+        <a href="{%url 'drop_migration'%}" class="addlink">
+          <button type="button" class="btn btn-primary" style = "margin:20px">
+            {% csrf_token %}
+            Удалить миграцию  
+          </button>
+          </a>
+
+        <a href="{%url 'migrate'%}" class="addlink">
+          <button type="button" class="btn btn-primary" style = "margin:20px">
+            {% csrf_token %}
+            Миграция записей  
+          </button>
+          </a>
+
           <form action = "{%url 'drop'%}" method = "post">
 <!--        <a href="{%url 'drop'%}" class="addlink">-->
           <button type="submit" class="btn btn-primary" style = "margin: 20px">
