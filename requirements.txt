@@ -1,3 +1,5 @@
-Django
-gunicorn
+django
 python-dotenv
+qrcode
+psycopg2
+bs4
