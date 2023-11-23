@@ -16,15 +16,15 @@ class Csv:
             csv_reader = csv.reader(f, delimiter = ";") 
 
             for row in csv_reader:
-                if row[2] != "" and row[2] not in inv_numb_set:   
-                    inv_numb_set.add(row[2])
-                    csv_array.append(row)
-                elif row[2] != "":
-                    row[2] = row[2] + "(пов)"
-                    csv_array.append(row)
-                else:
-                    row[2] = "пусто"
-                    csv_array.append(row)
+                # if row[2] != "" and row[2] not in inv_numb_set:   
+                #     inv_numb_set.add(row[2])
+                #     csv_array.append(row)
+                # elif row[2] != "":
+                #     row[2] = row[2] + "(пов)"
+                #     csv_array.append(row)
+                # else:
+                #     row[2] = "пусто"
+                #     csv_array.append(row)
                 csv_array.append(row)
             
             # for row in csv_reader:
