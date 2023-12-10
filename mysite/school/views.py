@@ -76,16 +76,26 @@ class Upload(ListView):
             csv = Csv()
             csv_data = csv.read_csv(upload)
             
+            try:
+                o = SVT.objects.get(inv_number="0101010101")
+                print(o)
+            except:
+                pass
+            
             for i in csv_data[1:]:
-                svt = SVT()
-                svt.name = i[0]
-                svt.acounting = i[1]
-                svt.inv_number = i[2]
-                svt.cmo = i[3]
-                svt.data_get = i[4]
-                svt.data_inp = i[5]
-                svt.quantity = i[6]
-                svt.save()
+                try:
+                    inv = SVT.objects.get(inv_number=i[2])
+                    continue
+                except:
+                    svt = SVT()
+                    svt.name = i[0]
+                    svt.acounting = i[1]
+                    svt.inv_number = i[2]
+                    svt.cmo = i[3]
+                    svt.data_get = i[4]
+                    svt.data_inp = i[5]
+                    svt.quantity = i[6]
+                    svt.save()
                          
             return redirect("table")
     
@@ -94,7 +104,7 @@ class Upload(ListView):
         return render(request, 'read_from_xml.html', {'upload':upload})
 
 
-# Страница книги учета   
+# Страница книги учета  
 class Table(ListView):
     model = Accounting
     template_name = 'build.html'

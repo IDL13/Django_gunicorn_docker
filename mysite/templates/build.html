@@ -24,17 +24,9 @@
         </div>
       </header>
       <main class="px-2" >
-        {% if 'school.add_accounting' in user.get_group_permissions%}
-        <a href="{%url 'add_accounting'%}" class="addlink">
-        <button type="button" class="btn btn-primary">
-          {% csrf_token %}
-          Добавить Учётная книга  
-        </button>
-        </a>
-        {%endif%}
         {%if 'school.view_store' in user.get_group_permissions%}
         <a href="/login/storage/50" class="addlink">
-          <button type="submit" class="btn btn-primary">
+          <button type="submit" class="btn " style = "margin: 10px; color: red; background-color: grey; border-color: grey>
             {%csrf_token%}
             Склад
           </button>
@@ -43,7 +35,7 @@
   
         {%if 'school.view_store' in user.get_group_permissions%}
         <a href="{%url 'save_in_csv'%}" class="addlink">
-          <button type="submit" class="btn btn-primary">
+          <button type="submit" class="btn btn-primary" style = "margin: 10px">
             {%csrf_token%}
             Сохранить в csv
           </button>
@@ -52,7 +44,7 @@
 
         {%if 'school.view_store' in user.get_group_permissions%}
         <a href="/static/csv/csv.csv" class="addlink" download>
-          <button type="submit" class="btn btn-primary">
+          <button type="submit" class="btn btn-primary" style = "margin: 10px">
             {%csrf_token%}
             Скачать csv
           </button>
@@ -61,7 +53,7 @@
 
         {%if 'school.view_store' in user.get_group_permissions%}
         <a href="{%url 'upload'%}" class="addlink">
-          <button type="submit" class="btn btn-primary">
+          <button type="submit" class="btn btn-primary" style = "margin: 10px">
             {%csrf_token%}
             Загрузка из csv
           </button>
@@ -69,7 +61,7 @@
         {%endif%}
         {%if 'school.view_store' in user.get_group_permissions%}
         <a href="{%url 'all_csv'%}" class="addlink">
-          <button type="submit" class="btn btn-primary">
+          <button type="submit" class="btn btn-primary" style = "margin: 10px">
             {%csrf_token%}
             Чтение из csv
           </button>

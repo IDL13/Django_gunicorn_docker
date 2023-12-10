@@ -10,7 +10,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG')
 
-ALLOWED_HOSTS = ['127.0.0.1','0.0.0.0',"localhost"]
+ALLOWED_HOSTS = ["127.0.0.1", "0.0.0.0", "localhost"]
 
 
 # Application definition
@@ -64,13 +64,24 @@ DATABASES = {
     # 'default': env.db(),
 
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Django_ac',
-        'USER': os.getenv('USER'),
-        'PASSWORD': os.getenv('PASSWORD'),
-        'HOST': 'pg_db',
-        'PORT': '5432',
+        'ENGINE': os.getenv("ENGINE"),
+        'NAME': os.getenv("NAME"),
+        'USER': os.getenv("USER"),
+        'PASSWORD': os.getenv("PASSWORD"),
+        'HOST': "localhost",
+        'PORT': "5432",
     }
+    
+    #Docker configuration
+    
+    #     'default': {
+    #     'ENGINE': os.getenv("ENGINE"),
+    #     'NAME': os.getenv("NAME"),
+    #     'USER': os.getenv("USER"),
+    #     'PASSWORD': os.getenv("PASSWORD"),
+    #     'HOST': "pg_db",
+    #     'PORT': "5432",
+    # }
 }
 
 

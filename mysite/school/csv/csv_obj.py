@@ -10,11 +10,21 @@ class Csv:
     @staticmethod
     def read_csv(filename:object):
         csv_array = []
+        inv_numb_set = set()
         
         with filename.file.open(mode="r") as f:
             csv_reader = csv.reader(f, delimiter = ";") 
 
             for row in csv_reader:
+                # if row[2] != "" and row[2] not in inv_numb_set:   
+                #     inv_numb_set.add(row[2])
+                #     csv_array.append(row)
+                # elif row[2] != "":
+                #     row[2] = row[2] + "(пов)"
+                #     csv_array.append(row)
+                # else:
+                #     row[2] = "пусто"
+                #     csv_array.append(row)
                 csv_array.append(row)
             
             # for row in csv_reader:
@@ -35,3 +45,5 @@ class Csv:
             return 0
         except:
             return 1
+    
+    
