@@ -104,7 +104,7 @@ class Upload(ListView):
         return render(request, 'read_from_xml.html', {'upload':upload})
 
 
-# Страница книги учета   
+# Страница книги учета  
 class Table(ListView):
     model = Accounting
     template_name = 'build.html'
