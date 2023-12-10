@@ -1,4 +1,4 @@
-django
+Django
 python-dotenv
 qrcode
 psycopg2
