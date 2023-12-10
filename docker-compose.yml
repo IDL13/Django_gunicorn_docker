@@ -4,7 +4,9 @@ services:
   django_gunicorn:
     env_file:
       - .env
-    build: .
+    build:
+      context: .
+      network: host
     container_name: django
     ports:
       - "8000:8000"
