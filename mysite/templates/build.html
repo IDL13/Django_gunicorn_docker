@@ -34,7 +34,7 @@
         {%endif%}
   
         {%if 'school.view_store' in user.get_group_permissions%}
-        <a href="{%url 'save_in_csv'%}" class="addlink">
+        <a href = "{%url 'save_in_csv'%}" class="addlink">
           <button type="submit" class="btn btn-primary" style = "margin: 10px">
             {%csrf_token%}
             Сохранить в csv
@@ -159,18 +159,9 @@
   </section>
   <footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-ed1d">
     <div class="u-clearfix u-sheet u-sheet-1">
-        <p class="u-small-text u-text u-text-variant u-text-1">Если у вас есть вопросы то пишите администратору L@gmail.com</p>
+        <p class="u-small-text u-text u-text-variant u-text-1">Если у вас есть вопросы то пишите администратору le0noff.il@yandex.ru</p>
     </div>
 </footer>
-<section class="u-backlink u-clearfix u-grey-80">
-        <span>Website</span>
-    <p class="u-text">
-        <span>created with</span>
-    </p>
-        <span>Ilya Leonov</span>
-    . 
-
-</section>
 {%endblock%}
   {%endif%}
 </html>
