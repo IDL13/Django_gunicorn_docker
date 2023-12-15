@@ -8,10 +8,12 @@ load_dotenv()
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG')
+DEBUG = False
 
-ALLOWED_HOSTS = ["127.0.0.1", "0.0.0.0", "localhost", "79.174.84.224", "sch-stock.ru"]
-
+if DEBUG:
+    ALLOWED_HOSTS = ["*"]
+else:
+    ALLOWED_HOSTS = ["79.174.84.224", "sch-stock.ru"]
 
 # Application definition
 
@@ -58,30 +60,33 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
+if DEBUG:
+    DATABASES = {
 
-DATABASES = {
+        # 'default': env.db(),
 
-    # 'default': env.db(),
-
-    'default': {
-        'ENGINE': os.getenv("ENGINE"),
-        'NAME': os.getenv("NAME"),
-        'USER': os.getenv("USER"),
-        'PASSWORD': os.getenv("PASSWORD"),
-        'HOST': os.getenv("HOST"),
-        'PORT': os.getenv("PORT"),
+        'default': {
+            'ENGINE': os.getenv("ENGINE"),
+            'NAME': os.getenv("NAME"),
+            'USER': os.getenv("USER"),
+            'PASSWORD': os.getenv("PASSWORD"),
+            'HOST': "localhost",
+            'PORT': "5432",
+        }
     }
-    
-    #Docker configuration
-    
-    #     'default': {
-    #     'ENGINE': os.getenv("ENGINE"),
-    #     'NAME': os.getenv("NAME"),
-    #     'USER': os.getenv("USER"),
-    #     'PASSWORD': os.getenv("PASSWORD"),
-    #     'HOST': "pg_db",
-    #     'PORT': "5432",
-    # }
+else:
+   DATABASES = {
+
+        # 'default': env.db(),
+
+        'default': {
+            'ENGINE': os.getenv("ENGINE"),
+            'NAME': os.getenv("NAME"),
+            'USER': os.getenv("USER"),
+            'PASSWORD': os.getenv("PASSWORD"),
+            'HOST': os.getenv("HOST"),
+            'PORT': os.getenv("PORT"),
+        }
 }
 
 
@@ -118,13 +123,16 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
-
-STATIC_URL = '/static/'
-STATIC_ROOT = '/static/'
-
-STATICFILES_DIRS = [
+if DEBUG:
+    STATIC_URL = '/static/'
+    STATIC_ROOT = "/static/"
+    STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
-]
+    ]   
+else:
+    STATIC_URL = '/static/'
+    STATIC_ROOT = os.path.join(BASE_DIR, "static")
+    # STATIC_ROOT = "/static/"
 
 MEDIA_URL = '/upload_csv/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'upload_csv')

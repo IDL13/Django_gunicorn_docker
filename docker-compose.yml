@@ -25,24 +25,18 @@ services:
     volumes:
       - pgdbdata:/var/lib/postgresql/data/
 
+  nginx:
+    build: ./nginx
+    volumes:
+      - /root/test/Django_gunicorn_docker/mysite/static:/static
+    ports:
+      - "80:80"
+    depends_on:
+      - django_gunicorn
+
 volumes:
   pgdbdata: null
+  static: 
       
-  # pg_db: 
-  #   image: postgres:14.3-alpine
-  #   expose:
-  #     - 5432
-  #   env_file:
-  #     - .env
-  #   depends_on:
-  #     - django_gunicorn
-  
-#   nginx:
-#     build: ./nginx
-#     volumes:
-#       - static:/static
-#     ports:
-#       - "85:80"
-#     depends_on:
-#       - django_gunicorn
+
 
