@@ -28,15 +28,21 @@ services:
   nginx:
     build: ./nginx
     volumes:
-      - /root/test/Django_gunicorn_docker/mysite/static:/static
+      - ./mysite/school/static:/static
+      - /etc/ssl:/etc/ssl
     ports:
       - "80:80"
+      - "443:443"
+    links:
+      - django_gunicorn
+    restart:
+      always
     depends_on:
       - django_gunicorn
 
 volumes:
   pgdbdata: null
-  static: 
+  static:
       
 
 
