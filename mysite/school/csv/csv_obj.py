@@ -33,15 +33,15 @@ class Csv:
         return csv_array
     
     @staticmethod
-    def write_in_csv(dataSet:List[str], path:str) -> int:
+    def write_in_csv(dataSet:List[str], path:str):
         try:
-            with open(path, "w", newline="\n", encoding="cp1251") as f: 
+            with open(path, "w", newline="\n", encoding="cp1251") as f:
                 writer = csv.writer(f, delimiter=";")
                 writer.writerow(["Основное средство", "Гр. уч", "Инвентарный номер","Серийный номер" "ЦМО", "Дата ввода в эксплуатацию", "Дата принятия к учету", "Количество"])
                 
                 for row in dataSet:
                     writer.writerow(row) 
-                         
+
             return 0
         except:
             return 1
