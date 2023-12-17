@@ -8,7 +8,7 @@ load_dotenv()
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 if DEBUG:
     ALLOWED_HOSTS = ["*"]
@@ -63,8 +63,6 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 if DEBUG:
     DATABASES = {
 
-        # 'default': env.db(),
-
         'default': {
             'ENGINE': os.getenv("TEST_ENGINE"),
             'NAME': os.getenv("TEST_NAME"),
@@ -76,8 +74,6 @@ if DEBUG:
     }
 else:
    DATABASES = {
-
-        # 'default': env.db(),
 
         'default': {
             'ENGINE': os.getenv("ENGINE"),
@@ -130,7 +126,7 @@ if DEBUG:
     os.path.join(BASE_DIR, "static"),
     ]   
 else:
-    STATIC_URL = 'mysite/school/static/'
+    STATIC_URL = '/static/'
     STATIC_ROOT = os.path.join(BASE_DIR, "static")
     CSRF_TRUSTED_ORIGINS = ["https://sch-stock.ru"]
 
