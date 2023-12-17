@@ -49,11 +49,11 @@ class Upload(ListView):
             dataSet.append(row)
             
         csv = Csv()
-        err = csv.write_in_csv(dataSet=dataSet, path="mysite/static/csv/csv.csv")
+        err = csv.write_in_csv(dataSet=dataSet, path="mysite/school/static/csv/csv.csv")
         if err != 0:
             raise Exception("Запись прошла неудачно")
         
-        return redirect("table")
+        return redirect("/mysite/school/static/csv/csv.csv")
     
     def simple_upload(request): 
         if request.method == 'POST' and request.FILES['myfile']:
