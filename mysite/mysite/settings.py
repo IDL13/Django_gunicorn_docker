@@ -132,6 +132,7 @@ if DEBUG:
 else:
     STATIC_URL = '/static/'
     STATIC_ROOT = os.path.join(BASE_DIR, "static")
+    CSRF_TRUSTED_ORIGINS = ["https://sch-stock.ru"]
     # STATIC_ROOT = "/static/"
 
 MEDIA_URL = '/upload_csv/'
