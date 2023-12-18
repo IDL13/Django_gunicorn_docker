@@ -1,4 +1,5 @@
 import qrcode
+import os
 
 from django.shortcuts import redirect, render
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound
@@ -49,11 +50,11 @@ class Upload(ListView):
             dataSet.append(row)
             
         csv = Csv()
-        err = csv.write_in_csv(dataSet=dataSet, path="mysite/school/static/csv/csv.csv")
+        err = csv.write_in_csv(dataSet=dataSet, path="media/csv/csv.csv")
         if err != 0:
             raise Exception("Запись прошла неудачно")
         
-        return redirect("/mysite/school/static/csv/csv.csv")
+        return redirect("/media/csv/csv.csv")
     
     def simple_upload(request): 
         if request.method == 'POST' and request.FILES['myfile']:
@@ -206,10 +207,10 @@ class Storage(ListView):
         data = data.encode("cp1251")
         filename = "qr" + str(id) +".png"
         img = qrcode.make(data)
-        
-        img.save("mysite/static/img/"+filename)
-        
-        filename = "/static/img/"+filename   
+
+        img.save("media/img/" + filename)
+
+        filename = "/media/img/" + filename
            
         return render(request, "qr.html", {'filename':filename})
     

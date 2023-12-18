@@ -8,10 +8,12 @@ load_dotenv()
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 if DEBUG:
     ALLOWED_HOSTS = ["*"]
+
+    # ALLOWED_HOSTS = ["79.174.84.224", "sch-stock.ru"]
 else:
     ALLOWED_HOSTS = ["79.174.84.224", "sch-stock.ru"]
 
@@ -63,8 +65,6 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 if DEBUG:
     DATABASES = {
 
-        # 'default': env.db(),
-
         'default': {
             'ENGINE': os.getenv("TEST_ENGINE"),
             'NAME': os.getenv("TEST_NAME"),
@@ -74,10 +74,20 @@ if DEBUG:
             'PORT': os.getenv("TEST_PORT"),
         }
     }
+
+    # DATABASES = {
+
+    #     'default': {
+    #         'ENGINE': os.getenv("ENGINE"),
+    #         'NAME': os.getenv("NAME"),
+    #         'USER': os.getenv("USER"),
+    #         'PASSWORD': os.getenv("PASSWORD"),
+    #         'HOST': os.getenv("HOST"),
+    #         'PORT': os.getenv("PORT"),
+    #     }
+    # }
 else:
    DATABASES = {
-
-        # 'default': env.db(),
 
         'default': {
             'ENGINE': os.getenv("ENGINE"),
@@ -128,14 +138,18 @@ if DEBUG:
     STATIC_ROOT = "/static/"
     STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
-    ]   
+    ]
+
+    # STATIC_URL = '/static/'
+    # STATIC_ROOT = os.path.join(BASE_DIR, "static")
+    # CSRF_TRUSTED_ORIGINS = ["https://sch-stock.ru"]
 else:
-    STATIC_URL = 'mysite/school/static/'
+    STATIC_URL = '/static/'
     STATIC_ROOT = os.path.join(BASE_DIR, "static")
     CSRF_TRUSTED_ORIGINS = ["https://sch-stock.ru"]
 
-MEDIA_URL = '/upload_csv/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'upload_csv')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
