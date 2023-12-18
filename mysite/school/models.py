@@ -63,3 +63,4 @@ class File(models.Model):
     class Meta:
         verbose_name = 'Загрузка xml'
         verbose_name_plural = 'Загрузка xml'
+
