@@ -1,5 +1,6 @@
 import qrcode
 import smtplib
+import os
 
 from email.mime.application import MIMEApplication
 from email.mime.multipart import MIMEMultipart
@@ -35,6 +36,7 @@ class Upload(ListView):
     context_object_name = 'upload'
    
     def save_in_csv(request):
+        password = os.getenv("MAIL_PASS")
         users = SVT.objects.all()
         dataSet = []
         
@@ -51,13 +53,33 @@ class Upload(ListView):
             row.append(str(i.quantity))
             
             dataSet.append(row)
-            
+        
+        filename = "csv" + dataSet[0][2] + ".csv"
+        path = "media/csv/" + filename
+
         csv = Csv()
-        err = csv.write_in_csv(dataSet=dataSet, path="media/csv/csv.csv")
+        err = csv.write_in_csv(dataSet=dataSet, path="media/csv/"+filename)
         if err != 0:
             raise Exception("Запись прошла неудачно")
         
-        return redirect("/media/csv/csv.csv")
+        if request.method == 'GET':
+            return render(request, 'csv.html')
+        if request.method == 'POST':
+            mail = request.POST.get("mail")
+
+            msg = MIMEMultipart()
+            msg["Subject"] = "CSV"
+            msg["From"] = "info@sch-mr.ru"
+
+            part = MIMEApplication(open(path, "rb").read())
+            part.add_header("Content-Disposition", "attachment", filename = filename)
+            msg.attach(part)
+
+            server = smtplib.SMTP("mail.sch-mr.ru", 587)
+            server.login("info@sch-mr.ru", password)
+            server.sendmail(msg['From'], mail, msg.as_string())
+
+            return render(request, "storage.html")
     
     def simple_upload(request): 
         if request.method == 'POST' and request.FILES['myfile']:
@@ -205,6 +227,7 @@ class Storage(ListView):
         return render(request, "find_storage.html", {'object': obj})
     
     def qr(request, id):
+        password = os.getenv("MAIL_PASS")
         filename = "qr" + str(id) +".png"
         path = "media/img/" + filename
         if request.method == "GET":
@@ -231,7 +254,7 @@ class Storage(ListView):
             msg.attach(part)
 
             server = smtplib.SMTP("mail.sch-mr.ru", 587)
-            server.login("info@sch-mr.ru", "jr78H_iL")
+            server.login("info@sch-mr.ru", password)
             server.sendmail(msg['From'], mail, msg.as_string())
 
             return render(request, "storage.html")
