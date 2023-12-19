@@ -64,3 +64,11 @@ class File(models.Model):
         verbose_name = 'Загрузка xml'
         verbose_name_plural = 'Загрузка xml'
 
+
+class QR(models.Model):
+    name = models.CharField(max_length=50)
+    file = models.FileField(upload_to="img/")
+
+    class Meta:
+        verbose_name = 'QRcode'
+        verbose_name_plural = 'QRcode'

@@ -1,5 +1,8 @@
 import qrcode
-import os
+import smtplib
+
+from email.mime.application import MIMEApplication
+from email.mime.multipart import MIMEMultipart
 
 from django.shortcuts import redirect, render
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound
@@ -202,17 +205,36 @@ class Storage(ListView):
         return render(request, "find_storage.html", {'object': obj})
     
     def qr(request, id):
-        obj = SVT.objects.get(id=id)
-        data = "Техника:" + " " + str(obj.name) + "\n" + "Техномер:" + " " + str(obj.inv_number) + "\n"
-        data = data.encode("cp1251")
         filename = "qr" + str(id) +".png"
-        img = qrcode.make(data)
+        path = "media/img/" + filename
+        if request.method == "GET":
+            obj = SVT.objects.get(id=id)
+            data = "Техника:" + " " + str(obj.name) + "\n" + "Техномер:" + " " + str(obj.inv_number) + "\n"
+            data = data.encode("cp1251")
+            img = qrcode.make(data)
 
-        img.save("media/img/" + filename)
+            img.save("media/img/" + filename)
 
-        filename = "/media/img/" + filename
-           
-        return render(request, "qr.html", {'filename':filename})
+            filename = "/media/img/" + filename
+            
+            return render(request, "qr.html", {'filename':filename})
+        
+        if request.method == "POST":
+            mail = request.POST.get("mail")
+
+            msg = MIMEMultipart()
+            msg["Subject"] = "QRcode"
+            msg["From"] = "info@sch-mr.ru"
+
+            part = MIMEApplication(open(path, "rb").read())
+            part.add_header("Content-Disposition", "attachment", filename = filename)
+            msg.attach(part)
+
+            server = smtplib.SMTP("mail.sch-mr.ru", 587)
+            server.login("info@sch-mr.ru", "jr78H_iL")
+            server.sendmail(msg['From'], mail, msg.as_string())
+
+            return render(request, "storage.html")
     
     def drop(request):
         if request.method == 'POST':

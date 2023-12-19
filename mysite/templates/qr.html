@@ -5,7 +5,17 @@
 
 <h1>Сгенерированый Qr</h1>
 
-<img src={{filename}} width="500" height="600">
+<form method="post">
+    {% csrf_token %}
+    <p>
+        <h5><label style = "padding: 5px; margin-right: 60px;">Почта для отправки Qr кода</label><h5>
+        <input type="text" name="mail"/>
+        </p>
+    <button style = "margin: 10px; border-color:white; border-radius: 20px" class="btn btn-dark" tupe = "submit" >Войти</button>
+</form> 
 
-<a href={{filename}} class="addlink" download><h3>Скачать Qr</h3></a>
+<!-- <img src={{filename}} width="500" height="600"> -->
+<!-- <img src={{filename}} width="500" height="600">
+
+<a href={{filename}} class="addlink" download><h3>Скачать Qr</h3></a> -->
 {% endblock  %}

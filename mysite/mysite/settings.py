@@ -8,12 +8,12 @@ load_dotenv()
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 if DEBUG:
-    ALLOWED_HOSTS = ["*"]
+    # ALLOWED_HOSTS = ["*"]
 
-    # ALLOWED_HOSTS = ["79.174.84.224", "sch-stock.ru"]
+    ALLOWED_HOSTS = ["79.174.84.224", "sch-stock.ru"]
 else:
     ALLOWED_HOSTS = ["79.174.84.224", "sch-stock.ru"]
 
@@ -63,29 +63,29 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 if DEBUG:
-    DATABASES = {
-
-        'default': {
-            'ENGINE': os.getenv("TEST_ENGINE"),
-            'NAME': os.getenv("TEST_NAME"),
-            'USER': os.getenv("TEST_USER"),
-            'PASSWORD': os.getenv("TEST_PASSWORD"),
-            'HOST': os.getenv("TEST_HOST"),
-            'PORT': os.getenv("TEST_PORT"),
-        }
-    }
-
     # DATABASES = {
 
     #     'default': {
-    #         'ENGINE': os.getenv("ENGINE"),
-    #         'NAME': os.getenv("NAME"),
-    #         'USER': os.getenv("USER"),
-    #         'PASSWORD': os.getenv("PASSWORD"),
-    #         'HOST': os.getenv("HOST"),
-    #         'PORT': os.getenv("PORT"),
+    #         'ENGINE': os.getenv("TEST_ENGINE"),
+    #         'NAME': os.getenv("TEST_NAME"),
+    #         'USER': os.getenv("TEST_USER"),
+    #         'PASSWORD': os.getenv("TEST_PASSWORD"),
+    #         'HOST': os.getenv("TEST_HOST"),
+    #         'PORT': os.getenv("TEST_PORT"),
     #     }
     # }
+
+    DATABASES = {
+
+        'default': {
+            'ENGINE': os.getenv("ENGINE"),
+            'NAME': os.getenv("NAME"),
+            'USER': os.getenv("USER"),
+            'PASSWORD': os.getenv("PASSWORD"),
+            'HOST': os.getenv("HOST"),
+            'PORT': os.getenv("PORT"),
+        }
+    }
 else:
    DATABASES = {
 
@@ -134,15 +134,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 if DEBUG:
-    STATIC_URL = "mysite/school/static/"
-    STATIC_ROOT = "/static/"
-    STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-    ]
+    # STATIC_URL = "mysite/school/static/"
+    # STATIC_ROOT = "/static/"
+    # STATICFILES_DIRS = [
+    # os.path.join(BASE_DIR, "static"),
+    # ]
 
-    # STATIC_URL = '/static/'
-    # STATIC_ROOT = os.path.join(BASE_DIR, "static")
-    # CSRF_TRUSTED_ORIGINS = ["https://sch-stock.ru"]
+    STATIC_URL = '/static/'
+    STATIC_ROOT = os.path.join(BASE_DIR, "static")
+    CSRF_TRUSTED_ORIGINS = ["https://sch-stock.ru"]
 else:
     STATIC_URL = '/static/'
     STATIC_ROOT = os.path.join(BASE_DIR, "static")

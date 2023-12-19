@@ -28,6 +28,7 @@ services:
   nginx:
     build: ./nginx
     volumes:
+      # - './mysite/media/:/media'
       - ./mysite/school/static:/static
       - /etc/ssl:/etc/ssl
     ports:

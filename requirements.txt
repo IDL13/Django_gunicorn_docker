@@ -4,3 +4,4 @@ python-dotenv
 qrcode
 psycopg2
 bs4
+secure-smtplib
