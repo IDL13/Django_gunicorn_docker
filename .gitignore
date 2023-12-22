@@ -1,5 +1,5 @@
 .env
-mysite/static/xml
+mysite/static/
 mysite/upload_xml
 mysite/static
 

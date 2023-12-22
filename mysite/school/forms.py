@@ -15,6 +15,7 @@ class AccountingForm(forms.Form):
         self.request = kwargs.pop('request', None)
         super(AccountingForm, self).__init__(*args, **kwargs)
 
+
     class Meta:
         model = Accounting
         fields = ['users', 'technincs', 'create', 'tecNumber']
@@ -30,13 +31,16 @@ class AddStorageForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         
+        
     class Meta:
         model = SVT
         fields = ['name','acounting','inv_number','ser_number', 'cmo', 'data_get', 'data_inp', 'quantity']
-        
+
+      
 class AddAccountingForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        
         
     class Meta:
         model = Accounting
@@ -46,6 +50,7 @@ class AddAccountingForm(forms.ModelForm):
 class AddFileForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        
         
     class Meta:
         model = File

@@ -1,22 +1,31 @@
+# Версия докера
 version: '3.8'
 
+# Сервисы
 services:
+  # Джанго-гуникорн сеттинг
   django_gunicorn:
     env_file:
       - .env
+    # Сборка и объявление хоста
     build:
       context: .
       network: host
     container_name: django
+    # Проброс портов (8000 на хосте пробрасываеться на 8000 в контейнере)
     ports:
       - "8000:8000"
+    # Снхронизация файлов с хоста в контейнер
     volumes:
       - .:/usr/src/mysite
+    # Зависимость от другого сервиса
     depends_on:
       - pg_db
 
+  # Постгресс сеттинг
   pg_db:
     container_name: pg_db
+    # Проброс окружение
     environment:
       - POSTGRES_PASSWORD=django
       - POSTGRES_USER=django_user
@@ -25,9 +34,11 @@ services:
     volumes:
       - pgdbdata:/var/lib/postgresql/data/
 
+  # Сеттинг nginxы
   nginx:
     build: ./nginx
     volumes:
+      # - './mysite/media/:/media'
       - ./mysite/school/static:/static
       - /etc/ssl:/etc/ssl
     ports:

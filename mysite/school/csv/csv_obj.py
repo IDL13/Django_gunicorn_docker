@@ -4,13 +4,13 @@ from typing import *
 
 
 class Csv:   
-    def __len__(self) -> int:
+    def __len__(self) -> list:
         return len(self.read_csv()) - 1 if len(self.read_csv()) != 0 else len(self.read_csv())
     
     @staticmethod
     def read_csv(filename:object):
         csv_array = []
-        inv_numb_set = set()
+        # inv_numb_set = set()
         
         with filename.file.open(mode="r") as f:
             csv_reader = csv.reader(f, delimiter = ";") 
@@ -21,7 +21,7 @@ class Csv:
         return csv_array
     
     @staticmethod
-    def write_in_csv(dataSet:List[str], path:str):
+    def write_in_csv(dataSet:List[str], path:str) -> int:
         try:
             with open(path, "w", newline="\n", encoding="cp1251") as f:
                 writer = csv.writer(f, delimiter=";")

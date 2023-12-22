@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class Accounting(models.Model):
     users = models.CharField(max_length=30, verbose_name='Пользователь')
     technincs = models.CharField(max_length=50, verbose_name='Техника')
@@ -13,6 +14,7 @@ class Accounting(models.Model):
         verbose_name = 'Учётная книга'
         verbose_name_plural = 'Учётная книга'
 
+
 class AcountingBook(models.Model):
     name = models.CharField(max_length=500)
     acounting = models.CharField(max_length=100)
@@ -25,6 +27,7 @@ class AcountingBook(models.Model):
     def __str__(self):
         return self.users
 
+
     class Meta:
         verbose_name = 'Учётная книга'
         verbose_name_plural = 'Учётная книга'
@@ -35,6 +38,7 @@ class Store(models.Model):
     tecNumber = models.CharField(max_length=100)
     time = models.CharField(max_length=50, default="00.00.0000")
     status = models.BooleanField(default=True)
+
 
     class Meta:
         verbose_name = 'Склад'
@@ -51,6 +55,7 @@ class SVT(models.Model):
     data_inp = models.CharField(max_length=500, default="00.00.0000")
     quantity = models.CharField(max_length=100)
 
+
     class Meta:
         verbose_name = 'СВТ'
         verbose_name_plural = 'СВТ'
@@ -64,3 +69,12 @@ class File(models.Model):
         verbose_name = 'Загрузка xml'
         verbose_name_plural = 'Загрузка xml'
 
+
+class QR(models.Model):
+    name = models.CharField(max_length=50)
+    file = models.FileField(upload_to="img/")
+
+
+    class Meta:
+        verbose_name = 'QRcode'
+        verbose_name_plural = 'QRcode'
