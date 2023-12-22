@@ -6,13 +6,14 @@ from email.mime.application import MIMEApplication
 from email.mime.multipart import MIMEMultipart
 
 from django.shortcuts import redirect, render
-from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound
+from django.http import HttpResponseNotFound
 from django.urls import reverse_lazy
 from .forms import *
-from django.views.generic import ListView, DeleteView, CreateView, UpdateView
+from django.views.generic import ListView, CreateView
 from django.contrib.auth.views import LoginView
 from django.db.models import Q
 from school.csv.csv_obj import Csv
+
 
 # Домашняя страница
 class FirsPage(ListView):
@@ -20,6 +21,7 @@ class FirsPage(ListView):
     
     def observe(request): 
         return render(request, 'home.html')
+
 
 # Страница авторизации 
 class LoginUser(LoginView):
@@ -29,12 +31,13 @@ class LoginUser(LoginView):
     def get_success_url(self):
         return reverse_lazy('table')
 
-# Онавление данных путум чтения или изменения CSV файлов
+# Онавление данных путём чтения или изменения CSV файлов
 class Upload(ListView):
     model = File
     template_name = 'simple_upload.html'
     context_object_name = 'upload'
-   
+
+    # Сохранение данных в CSV
     def save_in_csv(request):
         password = os.getenv("MAIL_PASS")
         users = SVT.objects.all()
@@ -66,7 +69,8 @@ class Upload(ListView):
             return render(request, 'csv.html')
         if request.method == 'POST':
             mail = request.POST.get("mail")
-
+            
+            # Блок формирования письма с CSV файлом
             msg = MIMEMultipart()
             msg["Subject"] = "CSV"
             msg["From"] = "info@sch-mr.ru"
@@ -80,7 +84,8 @@ class Upload(ListView):
             server.sendmail(msg['From'], mail, msg.as_string())
 
             return render(request, "storage.html")
-    
+
+    # Добавление файла в базу дынных (загрузка файла на сайт)  
     def simple_upload(request): 
         if request.method == 'POST' and request.FILES['myfile']:
             myfile = request.FILES['myfile']
@@ -94,7 +99,8 @@ class Upload(ListView):
             f.save()            
             return render(request, 'simple_upload.html')       
         return render(request, 'simple_upload.html')
-       
+
+    # Парсер CSV файла
     def read_from_csv(request, file):
         if request.method == 'GET':
             upload = File.objects.get(file = str(file))
@@ -102,11 +108,10 @@ class Upload(ListView):
             csv = Csv()
             csv_data = csv.read_csv(upload)
             
-            try:
-                o = SVT.objects.get(inv_number="0101010101")
-                print(o)
-            except:
-                pass
+            # try:
+            #     o = SVT.objects.get(inv_number="0101010101")
+            # except:
+            #     pass
             
             for i in csv_data[1:]:
                 try:
@@ -124,7 +129,8 @@ class Upload(ListView):
                     svt.save()
                          
             return redirect("table")
-    
+        
+    # Список всех файлов из базы данных
     def all_csv(request):
         upload = File.objects.all()
         return render(request, 'read_from_xml.html', {'upload':upload})
@@ -135,7 +141,8 @@ class Table(ListView):
     model = Accounting
     template_name = 'build.html'
     context_object_name = 'acounting'
-    
+
+    # Удаление из учета по id
     def delete(request, id):
         try:
             user = Accounting.objects.get(id = id)
@@ -143,7 +150,8 @@ class Table(ListView):
             return redirect('table')     
         except Accounting.DoesNotExist:          
             return HttpResponseNotFound('<h2>User not found</h2>')
-        
+    
+    # Обновление записи учета по id  
     def update(request, id):
         try:
             user = Accounting.objects.get(id = id)
@@ -158,7 +166,8 @@ class Table(ListView):
                 return render(request, 'update_accounting.html')          
         except Accounting.DoesNotExist:
             return HttpResponseNotFound('<h2>Person not found</h2>')
-        
+     
+    # Поиск по учету   
     def find(request):
         search_query = request.GET.get('school','')
         
@@ -175,6 +184,7 @@ class Storage(ListView):
     template_name = 'storage.html'
     context_object_name = 'store'
 
+    # Получение 50 записей из склада
     def get_objects(request, count):
         if count == 50:
             nxt = count + 50
@@ -187,6 +197,7 @@ class Storage(ListView):
             store = SVT.objects.all()[prev:count]
             return render(request, "storage.html", {"store":store, "next": nxt, "prev": prev})
 
+    # Удаление со склада
     def delete(request, id):
         try:
             technique = SVT.objects.get(id=id)
@@ -195,6 +206,7 @@ class Storage(ListView):
         except Accounting.DoesNotExist:
             return HttpResponseNotFound('<h2>Technique not found</h2>')
         
+    # Обновленеи элемента склада  
     def update(request, id):
         try:
             svt = SVT.objects.get(id=id)   
@@ -215,7 +227,8 @@ class Storage(ListView):
                 return render(request, "update_storage.html", {"svt": svt})
         except Accounting.DoesNotExist:
             return HttpResponseNotFound('<h2>Person not found</h2>')
-        
+    
+    # Поиск по складу     
     def find(request):
         search_query = request.GET.get('find','')
         
@@ -226,6 +239,7 @@ class Storage(ListView):
             obj = SVT.objects.all
         return render(request, "find_storage.html", {'object': obj})
     
+    # Генератор QR кодов
     def qr(request, id):
         password = os.getenv("MAIL_PASS")
         filename = "qr" + str(id) +".png"
@@ -258,7 +272,8 @@ class Storage(ListView):
             server.sendmail(msg['From'], mail, msg.as_string())
 
             return render(request, "storage.html")
-    
+
+    # Сброс всех записей из SVT
     def drop(request):
         if request.method == 'POST':
             obj = SVT.objects.all().delete()
@@ -280,7 +295,9 @@ class Add_storage(CreateView):
     success_url = reverse_lazy('stor')
     
 
+# Класс миграции из склада в учет
 class Migration(ListView):
+    # Создание миграции
     def make_migration(request):
         old = SVT.objects.all()
         for i in range(len(old)):
@@ -295,10 +312,12 @@ class Migration(ListView):
             new.save()
         return render(request, "storage.html")
 
+    # Удаление миграции
     def drop_migration(request):
         obj = AcountingBook.objects.all().delete()
         return render(request, "storage.html")
     
+    # Обновление в мигрированной записи
     def update_acountingBook(request, id):
         try:
             svt = AcountingBook.objects.get(id=id)   
